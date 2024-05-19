@@ -1,23 +1,33 @@
 # servant.py
-import asyncio
-import websockets
+import time
+import requests
 import pyperclip
 import base64
 from PIL import Image
 from io import BytesIO
 
-async def receive_clipboard(uri):
-    async with websockets.connect(uri) as websocket:
-        async for message in websocket:
-            if message.startswith("IMAGE:"):
-                image_data = base64.b64decode(message[len("IMAGE:"):])
+SERVER_URL = "http://<SERVER_IP>:5000/clipboard"  # Replace <SERVER_IP> with the server's IP address
+
+def get_clipboard():
+    previous_clipboard_text = ""
+    previous_clipboard_image = ""
+    while True:
+        try:
+            response = requests.get(SERVER_URL)
+            data = response.json()
+            if 'text' in data and data['text'] != previous_clipboard_text:
+                pyperclip.copy(data['text'])
+                print(f"Received and copied text: {data['text']}")
+                previous_clipboard_text = data['text']
+            if 'image' in data and data['image'] != previous_clipboard_image:
+                image_data = base64.b64decode(data['image'])
                 image = Image.open(BytesIO(image_data))
                 image.show()  # Display the image (or save it to the clipboard if you have an appropriate tool)
                 print("Received and displayed image")
-            else:
-                pyperclip.copy(message)
-                print(f"Received and copied text: {message}")
+                previous_clipboard_image = data['image']
+        except Exception as e:
+            print(f"Error: {e}")
+        time.sleep(1)
 
 if __name__ == "__main__":
-    uri = "ws://https://0e4d29a9-f98a-458f-9982-ef6e3015650d-00-2ukn69p5kd4q5.pike.replit.dev"  # Replace <SERVER_IP> with the server's IP address
-    asyncio.get_event_loop().run_until_complete(receive_clipboard(uri))
+    get_clipboard()
