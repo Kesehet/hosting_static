@@ -1,1 +1,1 @@
-{"text": "npm test\r\n"}
+{"text": "import { render, screen } from '@testing-library/react';\r\nimport User from './User';\r\nimport App from './App';\r\n\r\ntest('renders User in App', () => {\r\n  render(<App />);\r\n  expect(screen.getByText('User Name')).toBeInTheDocument();\r\n});\r\n"}
