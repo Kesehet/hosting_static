@@ -1,1 +1,1 @@
-{"text": "import pytest\r\nfrom yourapp import create_app, db\r\n\r\n@pytest.fixture\r\ndef app():\r\n    app = create_app('test_config.TestConfig')\r\n    with app.app_context():\r\n        db.create_all()\r\n        yield app\r\n        db.drop_all()\r\n\r\n@pytest.fixture\r\ndef client(app):\r\n    return app.test_client()\r\n"}
+{}
