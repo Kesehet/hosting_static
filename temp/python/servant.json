@@ -1,0 +1,1 @@
+{"text": "REPO_PATH = r\"C:\\Users\\user\\Documents\\Hamood\\copy-paster\\hosting_static\"  # Replace with the path to your local git repository\r\nFILE_PATH = os.path.join(REPO_PATH, \"temp/python/servant.json\")"}
