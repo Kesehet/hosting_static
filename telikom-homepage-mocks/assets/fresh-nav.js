@@ -81,6 +81,13 @@
       glance.dataset.glanceVariants = '1';
       document.body.appendChild(glance);
     }
+    if (!document.querySelector('script[data-audience-map]')) {
+      const audience = document.createElement('script');
+      audience.src = 'assets/audience-map.js';
+      audience.defer = true;
+      audience.dataset.audienceMap = '1';
+      document.body.appendChild(audience);
+    }
   };
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ready,{once:true}); else ready();
 })();
