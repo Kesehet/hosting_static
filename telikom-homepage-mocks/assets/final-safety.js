@@ -15,6 +15,31 @@
     .tableWrap,.table-wrap,.comparison,.plan-table{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
     .institutional-hero,.hero{isolation:isolate}
     .inst-copy h1{word-break:normal}
+
+    /* Keep photography visible. Earlier blue overlays were overpowering the images. */
+    .institutional-hero .inst-bg{filter:saturate(.92) brightness(1.08)!important}
+    .institutional-hero .inst-bg:after{background:linear-gradient(90deg,rgba(8,18,27,.76) 0%,rgba(9,28,40,.48) 43%,rgba(7,21,30,.12) 76%,rgba(0,0,0,.03) 100%)!important}
+    .institutional-hero.consumer .inst-bg:after{background:linear-gradient(90deg,rgba(18,24,29,.72),rgba(21,34,43,.38) 48%,rgba(0,0,0,.05) 82%)!important}
+    .institutional-hero.nation .inst-bg:after{background:linear-gradient(90deg,rgba(11,24,31,.78),rgba(28,42,47,.48) 49%,rgba(10,18,22,.08) 82%)!important}
+    .institutional-hero.corporate .inst-bg:after{background:linear-gradient(90deg,rgba(24,29,33,.68),rgba(37,45,49,.34) 52%,rgba(0,0,0,.03) 84%)!important}
+    .institutional-hero.human .inst-bg:after{background:linear-gradient(90deg,rgba(10,25,31,.65),rgba(20,35,39,.25) 54%,rgba(0,0,0,.02) 86%)!important}
+    .institutional-hero.executive .inst-bg:after{background:linear-gradient(90deg,rgba(8,21,29,.78),rgba(16,35,43,.43) 52%,rgba(0,0,0,.05) 84%)!important}
+
+    /* Design 2: break the blue-on-blue rhythm with a warm institutional slate section. */
+    body[data-unique-variant='nation'] .ux-nation{background:#eef0ed!important;color:#18313f!important;border-top:1px solid #d8ddd9;border-bottom:1px solid #d8ddd9}
+    body[data-unique-variant='nation'] .ux-nation .ux-kicker{color:#536e63!important}
+    body[data-unique-variant='nation'] .ux-nation .ux-copy{color:#617078!important}
+    body[data-unique-variant='nation'] .ux-ledger{border-top-color:#cbd3ce!important}
+    body[data-unique-variant='nation'] .ux-ledger-row{border-bottom-color:#cbd3ce!important}
+    body[data-unique-variant='nation'] .ux-ledger-num{color:#4d7668!important}
+    body[data-unique-variant='nation'] .ux-ledger-row h3{color:#18313f!important}
+    body[data-unique-variant='nation'] .ux-ledger-row p{color:#64747b!important}
+    body[data-unique-variant='nation'] .ux-ledger-row a{color:#18313f!important;border-color:#aebbb4!important;background:#fff!important}
+    body[data-unique-variant='nation'] .ux-nation-note{background:#f8f8f5!important;color:#566970!important;border-left-color:#6b8f82!important}
+
+    /* Footer brand mark must remain the real logo, exactly as used in the header. */
+    footer img[src*='TPNGLOGO'],.footer img[src*='TPNGLOGO'],.foot img[src*='TPNGLOGO']{filter:none!important;opacity:1!important;background:#fff!important;padding:7px 10px!important;border-radius:8px!important;object-fit:contain!important;max-width:190px!important;height:auto!important;max-height:58px!important}
+
     @media(max-width:1100px){
       .inst-wrap{grid-template-columns:1fr!important}
       .inst-proof,.inst-consumer-promo,.inst-network-console,.inst-corporate-mark,.inst-exec-status{justify-self:start!important;max-width:min(620px,100%)!important;width:100%}
