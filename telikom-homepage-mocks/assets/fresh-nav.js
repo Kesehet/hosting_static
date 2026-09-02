@@ -73,6 +73,14 @@
       });
       utility.forEach(a => links.appendChild(a));
     }
+
+    if (!document.querySelector('script[data-glance-variants]')) {
+      const glance = document.createElement('script');
+      glance.src = 'assets/glance-variants.js';
+      glance.defer = true;
+      glance.dataset.glanceVariants = '1';
+      document.body.appendChild(glance);
+    }
   };
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ready,{once:true}); else ready();
 })();
