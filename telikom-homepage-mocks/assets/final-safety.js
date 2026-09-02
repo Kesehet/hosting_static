@@ -33,6 +33,8 @@
   const protectImages=()=>document.querySelectorAll('img').forEach(img=>{
     if(img.dataset.safeImage) return;
     img.dataset.safeImage='1';
+    const isLogo=/TPNGLOGO|telikom/i.test(img.src||'')||/telikom/i.test(img.alt||'');
+    if(isLogo) return;
     img.addEventListener('error',()=>{
       if(img.dataset.fallbackTried) return;
       img.dataset.fallbackTried='1';
@@ -43,8 +45,10 @@
 
   const removeDoubleArrows=()=>{
     document.querySelectorAll('a').forEach(a=>{
+      if(a.children.length) return;
       const t=a.textContent||'';
-      a.textContent=t.replace(/(?:\s*[→➜➝↗]){2,}\s*$/,' →').replace(/\s+→\s+→\s*$/,' →');
+      const cleaned=t.replace(/(?:\s*[→➜➝↗]){2,}\s*$/,' →').replace(/\s+→\s+→\s*$/,' →');
+      if(cleaned!==t) a.textContent=cleaned;
     });
   };
   removeDoubleArrows();
@@ -56,7 +60,6 @@
       el.style.opacity='.55';
     });
     document.querySelectorAll('.gn-status').forEach(el=>el.textContent='Service portfolio overview');
-    document.querySelectorAll('.inst-network-console small').forEach(el=>el.textContent='Core Telikom service categories');
   };
   sanitizeFakeStatus();
 
