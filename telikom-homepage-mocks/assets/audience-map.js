@@ -1,7 +1,16 @@
 (()=>{
+  const loadSafety=()=>{
+    if(document.querySelector('script[data-final-safety]')) return;
+    const s=document.createElement('script');
+    s.src='assets/final-safety.js';
+    s.defer=true;
+    s.dataset.finalSafety='1';
+    document.body.appendChild(s);
+  };
   const run=()=>{
     const title=document.title||'';
     const living=title.includes('Living Network');
+    loadSafety();
     if(living){
       const panel=document.querySelector('.hero-panel');
       if(panel&&!panel.dataset.quickStart){
