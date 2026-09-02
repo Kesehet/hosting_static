@@ -2,117 +2,185 @@
   const onReady = () => {
     const title = document.title || '';
     const logoSrc = 'https://www.telikom.com.pg/assets/misc/TPNGLOGO.png';
-    const imgPeople = 'https://www.fao.org/images/faoraplibraries/default-album/farmers-and-agripreneurs-actively-participate-in-a-hands-on-training-session-provided-by-the-eu-streit-png-programme.jpg?sfvrsn=4cc42070_1';
-    const imgCommunity = 'https://blog.apnic.net/wp-content/uploads/2016/04/Goroka-EHP.jpg';
-    const imgNetwork = 'https://mb.cision.com/Public/15029/2108514/94c87f17a0ea051a_org.jpg';
-    const imgProfessionals = 'https://pngbusinessnews.b-cdn.net/uploads/article/image/3959/large_625349331_1329153339253229_7698291451399085164_n.jpg';
-    const imgYouth = 'https://www.pnglng.com/media/PNG-LNG-Media/Media%20Release%20Images/Flying-labs_PNG-LNG-Article.png?ext=.png';
 
-    const heroSets = {
-      'Consumer Services Hub': [
-        ['EVERYDAY TELIKOM','Connecting Papua New Guinea, every day.','Mobile, home internet, self-care and support brought together for customers across PNG.',imgPeople,'Explore Services','Check Coverage'],
-        ['INTERNATIONAL CALLING','The world is your oyster.','New International Call Plans from K10 make it easier to stay connected beyond Papua New Guinea.',imgCommunity,'View Call Plans','Learn More'],
-        ['HOME & BUSINESS','Reliable connectivity for home and enterprise.','From fixed broadband to business data and remote connectivity, Telikom supports the way PNG works and lives.',imgNetwork,'Explore Connectivity','Business Services']
-      ],
-      'Connected Nation': [
-        ['NATIONAL INFRASTRUCTURE','A network built for a connected nation.','Telikom supports critical communications, businesses, communities and public services across Papua New Guinea.',imgNetwork,'View Network','Our Services'],
-        ['REMOTE CONNECTIVITY','Connecting the unconnected.','VSAT and satellite services help extend communications to remote sites, islands and communities.',imgCommunity,'Explore VSAT','Coverage'],
-        ['PUBLIC & ENTERPRISE','Trusted connectivity for organisations that matter.','Secure data, voice, hosting and business systems for enterprises, institutions and government operations.',imgProfessionals,'Enterprise Services','Contact Business']
-      ],
-      'Balanced Corporate': [
-        ['PNG OWNED. PNG FOCUSED.','A trusted national telecommunications partner.','A polished, dependable digital experience for customers, businesses and institutions across Papua New Guinea.',imgProfessionals,'Discover Telikom','View Services'],
-        ['BUSINESS & ENTERPRISE','Built for organisations with bigger responsibilities.','Business Data, fixed broadband, hosting, SIP Trunk and managed connectivity for modern organisations.',imgNetwork,'Business Portfolio','Talk to Telikom'],
-        ['COMMUNITY & ACCESS','Technology that creates opportunity.','Local connectivity, digital skills and access helping communities participate in PNG’s digital future.',imgYouth,'Community Stories','Our Network']
-      ],
-      'National Connectivity': [
-        ['PNG’S TRUSTED NETWORK','Together, wherever life takes you.','Reliable connectivity for homes, businesses and communities from the highlands to the islands.',imgCommunity,'Find a Service','Check Coverage'],
-        ['SATELLITE & REMOTE','Reach beyond the terrestrial network.','Remote connectivity options for sites and communities where traditional infrastructure is difficult to reach.',imgNetwork,'Explore Satellite','Business Data'],
-        ['LOCAL CAPABILITY','Built in Papua New Guinea, for Papua New Guinea.','Local people, local support and national infrastructure working together to keep the country connected.',imgProfessionals,'Why Telikom','Contact Us']
-      ],
-      'Digital Self Service': [
-        ['DIGITAL SELF-SERVICE','Your Telikom services, in one place.','Top up, pay bills, buy data, check balances and get support from one clear digital workspace.',imgPeople,'Open Self Care','View Plans'],
-        ['INTERNATIONAL CALLING','Call beyond PNG from K10.','Simple international calling options for customers connecting with family, friends and business contacts overseas.',imgCommunity,'View Call Plans','Top Up'],
-        ['BUSINESS SERVICES','One provider for your organisation’s connectivity.','Business Data, VSAT, hosting, fixed broadband and voice services backed by local support.',imgNetwork,'Explore Business','Contact Support']
-      ]
-    };
+    const variant = title.includes('Consumer Services Hub') ? 'consumer' :
+      title.includes('Connected Nation') ? 'nation' :
+      title.includes('Balanced Corporate') ? 'corporate' :
+      title.includes('National Connectivity') ? 'human' : 'executive';
 
     const style = document.createElement('style');
     style.textContent = `
-      .org-slider{position:relative;overflow:hidden;background:#062f4d;color:#fff;min-height:560px;border-bottom:4px solid #0875c9}
-      .org-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .7s ease,visibility .7s;background-position:center;background-size:cover}
-      .org-slide:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,31,50,.94) 0%,rgba(4,51,80,.80) 42%,rgba(3,42,67,.25) 72%,rgba(3,42,67,.08) 100%)}
-      .org-slide.active{opacity:1;visibility:visible}
-      .org-inner{position:relative;z-index:2;max-width:1320px;min-height:560px;margin:auto;padding:72px 28px 88px;display:flex;align-items:center}
-      .org-copy{max-width:720px}.org-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.22);font-size:12px!important;font-weight:800;letter-spacing:.08em}.org-kicker:before{content:'';width:7px;height:7px;border-radius:50%;background:#4bb6f0}
-      .org-copy h1{font:800 clamp(44px,5.4vw,72px)/1.01 Manrope,Inter,sans-serif;letter-spacing:-2.4px;margin:18px 0 16px;color:#fff}.org-copy p{font-size:18px!important;line-height:1.65;color:#e4f0f6;max-width:660px;margin:0 0 28px}
-      .org-actions{display:flex;gap:11px;flex-wrap:wrap}.org-actions a{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:6px;text-decoration:none;font-weight:800;font-size:14px!important}.org-actions a:first-child{background:#0a83d3;color:#fff}.org-actions a:last-child{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.45)}.org-actions a:after{content:'→'}
-      .org-controls{position:absolute;z-index:4;left:50%;bottom:24px;transform:translateX(-50%);width:min(1264px,calc(100% - 56px));display:flex;align-items:center;justify-content:space-between}.org-dots{display:flex;gap:7px}.org-dot{width:34px;height:4px;border:0;padding:0;border-radius:99px;background:rgba(255,255,255,.28);cursor:pointer;transition:.25s}.org-dot.active{background:#fff;width:54px}.org-arrows{display:flex;gap:7px}.org-arrow{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.34);background:rgba(3,43,68,.38);color:#fff;font-size:18px;cursor:pointer;backdrop-filter:blur(8px)}
-      .org-ribbon{background:#f5f8fa;border-bottom:1px solid #d9e3ea}.org-ribbon-inner{max-width:1320px;margin:auto;padding:13px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}.org-ribbon-item{padding:3px 18px;border-right:1px solid #dce5eb;color:#344f62;font-size:13px!important;font-weight:700}.org-ribbon-item:first-child{padding-left:0}.org-ribbon-item:last-child{border-right:0}.org-ribbon-item b{color:#0875c9;margin-right:6px}
-      body.org-consumer .org-slider{border-radius:0 0 28px 28px}.org-consumer .org-slide:after{background:linear-gradient(90deg,rgba(2,40,63,.93),rgba(2,40,63,.69) 45%,rgba(2,40,63,.16) 78%)}
-      body.org-network .org-slider{min-height:600px;background:#041f32}.org-network .org-slider:before{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:46px 46px}.org-network .org-kicker{border-radius:3px}.org-network .org-actions a{border-radius:3px}.org-network .org-dot{border-radius:0}
-      body.org-corporate .org-slider{min-height:520px;background:#fff;color:#102b43;border-bottom:1px solid #dbe5eb}.org-corporate .org-slide:after{background:linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.94) 42%,rgba(255,255,255,.42) 70%,rgba(255,255,255,.06))}.org-corporate .org-copy h1{color:#102b43}.org-corporate .org-copy p{color:#5d7180}.org-corporate .org-kicker{background:#edf3f7;color:#3f5668;border-color:#dce5eb}.org-corporate .org-actions a:last-child{color:#075f9f;border-color:#9fc9e5;background:#fff}.org-corporate .org-inner{min-height:520px}.org-corporate .org-dot{background:#b9c9d4}.org-corporate .org-dot.active{background:#0875c9}.org-corporate .org-arrow{background:#fff;color:#075f9f;border-color:#b8d4e5}
-      body.org-human .org-slider{min-height:650px}.org-human .org-inner{min-height:650px;align-items:flex-end}.org-human .org-copy{max-width:760px;padding-bottom:34px}.org-human .org-slide:after{background:linear-gradient(0deg,rgba(2,36,58,.92) 0%,rgba(2,36,58,.42) 52%,rgba(2,36,58,.08) 83%)}.org-human .org-copy h1{font-size:clamp(46px,6vw,78px)}
-      body.org-dashboard .org-slider{min-height:430px;border-radius:12px;margin:20px auto 0;width:min(1332px,calc(100% - 48px));box-shadow:0 18px 42px rgba(7,48,75,.14)}.org-dashboard .org-inner{min-height:430px;padding:52px 34px 76px}.org-dashboard .org-copy h1{font-size:clamp(38px,4.2vw,56px)}.org-dashboard .org-controls{width:calc(100% - 68px);bottom:20px}
-      .ref-campaign{margin:0;background:linear-gradient(135deg,#0875c9 0%,#1599d4 55%,#063451 100%);color:#fff}.ref-campaign-inner{max-width:1320px;margin:auto;padding:42px 28px;display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center}.ref-campaign h2{font:800 clamp(32px,4vw,52px)/1.02 Manrope;margin:8px 0 12px}.ref-campaign p{color:#e6f3fb;max-width:650px}.ref-campaign-price{justify-self:end;padding:22px;border-radius:12px;background:rgba(3,42,67,.7);border:1px solid rgba(255,255,255,.18)}.ref-campaign-price strong{display:block;font:800 52px Manrope}.ref-campaign-price a{display:inline-flex;margin-top:10px;padding:10px 14px;background:#fff;color:#075f9f;border-radius:6px;text-decoration:none;font-weight:800}
-      .ref-selfcare{background:#0b8fca;color:#fff}.ref-selfcare-inner{max-width:1320px;margin:auto;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.ref-selfcare h3{margin:0;font:800 20px Manrope}.ref-selfcare p{margin:3px 0 0;color:#ddf3fc}.ref-selfcare a{background:#fff;color:#0875c9;padding:10px 14px;border-radius:6px;text-decoration:none;font-weight:800}
-      .ref-service-band{padding:56px 28px;background:#fff}.ref-service-inner{max-width:1260px;margin:auto}.ref-service-head h2{font:800 31px Manrope;margin:0}.ref-service-head p{color:#667787}.ref-service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}.ref-service-card{padding:22px;border:1px solid #d7e3eb;border-radius:10px;background:#fbfdff}.ref-service-card h3{font:800 20px Manrope;margin:18px 0 8px}.ref-service-icon{width:40px;height:40px;border-radius:8px;background:#e9f4fb;color:#0875c9;display:grid;place-items:center;font-weight:800}.ref-service-card p{color:#687b8b}.ref-service-card a{color:#0875c9;text-decoration:none;font-weight:800}
-      .ref-trust{padding:54px 28px;background:linear-gradient(135deg,#0a2740,#123b60);color:#fff}.ref-trust-inner{max-width:1260px;margin:auto}.ref-trust-head{display:grid;grid-template-columns:.35fr .65fr;gap:34px;margin-bottom:24px}.ref-trust h2{font:800 37px Manrope;margin:0}.ref-trust-head p{color:#c9dbe8}.ref-trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.ref-trust-card{padding:17px;border:1px solid rgba(255,255,255,.14);border-radius:9px;background:rgba(255,255,255,.045)}.ref-trust-card b{display:block;margin:8px 0 5px}.ref-trust-card small{color:#c9dbe8!important}.ref-trust-card span{color:#78cdfb;font-weight:800}
-      @media(max-width:900px){.org-ribbon-inner{grid-template-columns:1fr 1fr}.org-ribbon-item:nth-child(2){border-right:0}.ref-campaign-inner,.ref-trust-head{grid-template-columns:1fr}.ref-campaign-price{justify-self:start}.ref-service-grid,.ref-trust-grid{grid-template-columns:1fr 1fr}.ref-selfcare-inner{align-items:flex-start;flex-direction:column}}
-      @media(max-width:600px){.org-slider,.org-inner{min-height:520px!important}.org-copy h1{font-size:42px!important}.org-copy p{font-size:16px!important}.org-ribbon-inner,.ref-service-grid,.ref-trust-grid{grid-template-columns:1fr}.org-ribbon-item{border-right:0;border-bottom:1px solid #dce5eb;padding:9px 0}.org-ribbon-item:last-child{border-bottom:0}.org-controls{width:calc(100% - 36px)}.org-dashboard .org-slider{width:calc(100% - 28px)}.ref-campaign-inner{padding:34px 18px}.ref-selfcare-inner{padding-left:18px;padding-right:18px}}
+      :root{--inst-blue:#0875c9;--inst-navy:#062f4d;--inst-deep:#031f34;--inst-ink:#102b43;--inst-line:#d8e4ec;--inst-sky:#eaf5fd;--inst-ease:cubic-bezier(.22,.61,.36,1)}
+      .institutional-hero{position:relative;overflow:hidden;color:#fff;background:#062f4d;border-bottom:1px solid rgba(255,255,255,.08)}
+      .institutional-hero .inst-slide{display:none;min-height:570px;position:relative;isolation:isolate}
+      .institutional-hero .inst-slide.active{display:block;animation:instFade .55s var(--inst-ease)}
+      .institutional-hero .inst-bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;transform:scale(1.01)}
+      .institutional-hero .inst-bg:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,32,52,.96) 0%,rgba(3,47,76,.85) 43%,rgba(3,47,76,.28) 72%,rgba(3,47,76,.14) 100%)}
+      .institutional-hero.nation .inst-bg:after{background:linear-gradient(90deg,rgba(1,29,48,.98),rgba(3,47,76,.88) 47%,rgba(8,117,201,.26))}
+      .institutional-hero.corporate .inst-bg:after{background:linear-gradient(90deg,rgba(4,42,67,.95),rgba(6,66,103,.78) 52%,rgba(6,66,103,.2))}
+      .institutional-hero.human .inst-bg:after{background:linear-gradient(90deg,rgba(4,38,62,.9),rgba(4,38,62,.58) 52%,rgba(4,38,62,.16))}
+      .institutional-hero.executive .inst-bg:after{background:linear-gradient(90deg,rgba(3,31,52,.98),rgba(5,55,88,.92) 54%,rgba(8,117,201,.24))}
+      .institutional-hero:before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px;opacity:.6}
+      .inst-wrap{max-width:1360px;margin:auto;padding:72px 32px 92px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(360px,.8fr);gap:48px;align-items:end;min-height:570px;position:relative;z-index:2}
+      .inst-copy{max-width:760px}.inst-kicker{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(255,255,255,.08);backdrop-filter:blur(8px);font-size:12px!important;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.inst-kicker:before{content:'';width:7px;height:7px;border-radius:50%;background:#53c2ff;box-shadow:0 0 0 5px rgba(83,194,255,.12)}
+      .inst-copy h1{font:800 clamp(48px,5.8vw,76px)/.98 Manrope,Inter,sans-serif;letter-spacing:-2.6px;margin:20px 0 18px;max-width:850px}.inst-copy p{font-size:18px!important;line-height:1.7;max-width:700px;color:#d9ebf5;margin:0 0 28px}.inst-actions{display:flex;gap:12px;flex-wrap:wrap}.inst-actions a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 19px;border-radius:8px;text-decoration:none;font-weight:800;font-size:14px!important;background:#0b87d8;color:#fff;border:1px solid #2fa7f0;box-shadow:0 10px 28px rgba(1,28,46,.24)}.inst-actions a.alt{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);backdrop-filter:blur(10px)}
+      .inst-proof{align-self:end;background:rgba(3,39,63,.78);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:24px;box-shadow:0 24px 60px rgba(0,0,0,.22);backdrop-filter:blur(14px)}.inst-proof .proof-label{font-size:11px!important;letter-spacing:.09em;text-transform:uppercase;color:#9edbff;font-weight:800}.inst-proof h3{font:800 23px Manrope;margin:8px 0 16px}.inst-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.inst-proof-grid div{padding:13px;border-radius:9px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1)}.inst-proof-grid b{display:block;font-size:14px!important}.inst-proof-grid small{color:#bdd5e4!important;font-size:12px!important}
+      .inst-controls{position:absolute;z-index:5;left:50%;transform:translateX(-50%);bottom:24px;display:flex;align-items:center;gap:12px}.inst-dots{display:flex;gap:7px}.inst-dots button{width:28px;height:4px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.38);cursor:pointer;transition:.25s}.inst-dots button.active{width:48px;background:#fff}.inst-arrow{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(3,38,61,.55);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:18px;backdrop-filter:blur(8px)}
+      @keyframes instFade{from{opacity:.3;transform:scale(1.005)}to{opacity:1;transform:none}}
+
+      .national-proof-strip{background:#fff;border-bottom:1px solid var(--inst-line);box-shadow:0 10px 28px rgba(7,46,73,.05)}.national-proof-inner{max-width:1360px;margin:auto;padding:0 32px;display:grid;grid-template-columns:repeat(5,1fr)}.national-proof-item{padding:18px 16px;border-right:1px solid #e9eff3;display:flex;gap:12px;align-items:center}.national-proof-item:first-child{border-left:1px solid #e9eff3}.national-proof-icon{width:37px;height:37px;border-radius:10px;background:#eaf5fd;color:#0875c9;display:grid;place-items:center;font-weight:900}.national-proof-item b{display:block;font-size:14px!important;color:#15344a}.national-proof-item small{display:block;color:#6d8090!important;font-size:12px!important;margin-top:2px}
+
+      .institutional-section{padding:72px 28px}.institutional-inner{max-width:1260px;margin:auto}.institutional-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:26px}.institutional-heading h2{font:800 34px Manrope;margin:0;letter-spacing:-.8px}.institutional-heading p{margin:7px 0 0;color:#667b8b;max-width:720px}.institutional-heading .eyebrow{font-size:11px!important;text-transform:uppercase;letter-spacing:.1em;color:#0875c9;font-weight:800}.institutional-link{color:#0875c9;text-decoration:none;font-weight:800;font-size:14px!important}
+
+      .national-role{background:linear-gradient(180deg,#f7fafc,#eef4f7)}.role-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.role-lead{min-height:430px;border-radius:18px;overflow:hidden;position:relative;background:linear-gradient(90deg,rgba(3,39,63,.94),rgba(3,39,63,.5)),url('https://mb.cision.com/Public/15029/2108514/94c87f17a0ea051a_org.jpg') center/cover;padding:38px;color:#fff;display:flex;align-items:flex-end}.role-lead h3{font:800 34px/1.12 Manrope;margin:9px 0 12px;max-width:620px}.role-lead p{color:#d8e9f3;max-width:600px}.role-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.role-card{background:#fff;border:1px solid #d8e4ec;border-radius:14px;padding:22px;position:relative;overflow:hidden;min-height:204px;box-shadow:0 10px 26px rgba(8,44,68,.05)}.role-card:before{content:'';position:absolute;right:-36px;top:-42px;width:110px;height:110px;border-radius:50%;background:rgba(8,117,201,.08)}.role-card span{width:39px;height:39px;border-radius:10px;display:grid;place-items:center;background:#eaf5fd;color:#0875c9;font-weight:900}.role-card h4{font:800 18px Manrope;margin:24px 0 8px}.role-card p{margin:0;color:#6b7e8d;font-size:14px!important;line-height:1.55}
+
+      .infrastructure-band{background:#062f4d;color:#fff;position:relative;overflow:hidden}.infrastructure-band:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(18,139,214,.2),transparent 32%),linear-gradient(115deg,rgba(255,255,255,.02),transparent 46%)}.infra-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px;position:relative}.infra-intro{padding-right:20px}.infra-intro h2{font:800 38px/1.08 Manrope;margin:8px 0 14px}.infra-intro p{color:#c9dce8;line-height:1.65}.infra-points{display:grid;grid-template-columns:1fr 1fr;gap:12px}.infra-point{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.045);border-radius:13px;padding:20px;min-height:145px}.infra-point b{display:block;font-size:16px!important;margin-bottom:7px}.infra-point small{color:#bfd4e2!important}.infra-point .num{display:block;font:800 26px Manrope;color:#6fd0ff;margin-bottom:12px}
+
+      .public-service{background:#fff}.public-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.public-card{border:1px solid #d9e4eb;border-radius:14px;padding:24px;background:linear-gradient(180deg,#fff,#f8fbfd);min-height:250px;box-shadow:0 12px 30px rgba(9,45,72,.05);position:relative;overflow:hidden}.public-card:after{content:'';position:absolute;left:0;bottom:0;height:4px;width:0;background:#0875c9;transition:.28s}.public-card:hover:after{width:100%}.public-card .pc-icon{width:43px;height:43px;border-radius:11px;background:#eaf5fd;color:#0875c9;display:grid;place-items:center;font-weight:900}.public-card h3{font:800 20px Manrope;margin:28px 0 8px}.public-card p{color:#6a7e8e;font-size:14px!important;line-height:1.6}.public-card ul{margin:18px 0 0;padding:0;list-style:none}.public-card li{font-size:13px!important;padding:7px 0;border-top:1px solid #e8eef2;color:#365168}
+
+      .trust-panel{background:linear-gradient(135deg,#0b2740,#0b3d60);color:#fff;position:relative;overflow:hidden}.trust-panel:before{content:'';position:absolute;inset:0;background-image:linear-gradient(30deg,rgba(255,255,255,.026) 12%,transparent 12.5%,transparent 87%,rgba(255,255,255,.026) 87.5%),linear-gradient(150deg,rgba(255,255,255,.018) 12%,transparent 12.5%,transparent 87%,rgba(255,255,255,.018) 87.5%);background-size:96px 164px}.trust-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;position:relative}.trust-item{padding:20px 16px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.04);min-height:155px}.trust-item span{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:rgba(57,174,239,.13);color:#78cdf8;font-weight:900;margin-bottom:18px}.trust-item b{display:block;font-size:14px!important}.trust-item small{display:block;color:#bed2df!important;margin-top:6px;font-size:12px!important}
+
+      .ref-campaign{margin:0;background:linear-gradient(135deg,#0875c9 0%,#1599d4 55%,#063451 100%);color:#fff;overflow:hidden;position:relative}.ref-campaign-inner{max-width:1320px;margin:auto;padding:46px 28px;display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center}.ref-campaign h2{font:800 clamp(34px,4.2vw,56px)/1.02 Manrope;margin:10px 0 12px}.ref-campaign p{max-width:650px;color:#e7f5fd}.ref-campaign-price{justify-self:end;padding:24px;border-radius:16px;background:rgba(3,42,67,.7);border:1px solid rgba(255,255,255,.18)}.ref-campaign-price strong{display:block;font:800 56px Manrope}.ref-campaign-price a{display:inline-flex;margin-top:12px;background:#fff;color:#075f9f;padding:10px 14px;border-radius:7px;text-decoration:none;font-weight:800}.ref-campaign-meta{display:flex;gap:8px;flex-wrap:wrap}.ref-campaign-meta span{padding:7px 10px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(255,255,255,.07)}
+      .ref-selfcare{background:#0d93cf;color:#fff}.ref-selfcare-inner{max-width:1320px;margin:auto;padding:20px 28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.ref-selfcare h3{margin:0 0 4px}.ref-selfcare p{margin:0;color:#def5ff}.ref-selfcare a{background:#fff;color:#0875c9;text-decoration:none;font-weight:800;padding:10px 15px;border-radius:7px}
+
+      .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--inst-ease),transform .7s var(--inst-ease)}.reveal.is-visible{opacity:1;transform:none}
+      @media(max-width:1050px){.inst-wrap{grid-template-columns:1fr;align-items:center}.inst-proof{max-width:600px}.national-proof-inner{grid-template-columns:repeat(3,1fr)}.role-grid,.infra-grid{grid-template-columns:1fr}.trust-grid{grid-template-columns:repeat(3,1fr)}.public-grid{grid-template-columns:1fr 1fr}}
+      @media(max-width:720px){.inst-wrap{padding:56px 20px 84px}.institutional-hero .inst-slide{min-height:640px}.inst-copy h1{font-size:44px}.inst-copy p{font-size:16px!important}.national-proof-inner{grid-template-columns:1fr 1fr;padding:0 16px}.national-proof-item{border-left:0!important}.role-cards,.infra-points,.public-grid,.trust-grid{grid-template-columns:1fr}.institutional-section{padding:54px 18px}.ref-campaign-inner,.ref-selfcare-inner{grid-template-columns:1fr}.ref-campaign-price{justify-self:start}.institutional-heading{align-items:start;flex-direction:column}}
+      @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1!important;transform:none!important}}
     `;
     document.head.appendChild(style);
 
-    let setKey = Object.keys(heroSets).find(k => title.includes(k));
-    const slides = setKey ? heroSets[setKey] : heroSets['Balanced Corporate'];
-    const bodyClass = title.includes('Consumer Services Hub') ? 'org-consumer' : title.includes('Connected Nation') ? 'org-network' : title.includes('Balanced Corporate') ? 'org-corporate' : title.includes('National Connectivity') ? 'org-human' : 'org-dashboard';
-    document.body.classList.add(bodyClass);
+    // remove any hand-authored trailing arrows where shared CSS already provides one
+    document.querySelectorAll('.view,.institutional-link').forEach(a => {
+      a.textContent = a.textContent.replace(/\s*[→›»]+\s*$/,'').trim();
+    });
 
-    const slider = `
-      <section class="org-slider" aria-label="Telikom highlights">
-        ${slides.map((s,i)=>`<article class="org-slide ${i===0?'active':''}" data-index="${i}" style="background-image:url('${s[3]}')"><div class="org-inner"><div class="org-copy"><span class="org-kicker">${s[0]}</span><h1>${s[1]}</h1><p>${s[2]}</p><div class="org-actions"><a href="#">${s[4]}</a><a href="#">${s[5]}</a></div></div></div></article>`).join('')}
-        <div class="org-controls"><div class="org-dots">${slides.map((_,i)=>`<button class="org-dot ${i===0?'active':''}" aria-label="Show slide ${i+1}" data-slide="${i}"></button>`).join('')}</div><div class="org-arrows"><button class="org-arrow org-prev" aria-label="Previous slide">‹</button><button class="org-arrow org-next" aria-label="Next slide">›</button></div></div>
-      </section>
-      <div class="org-ribbon"><div class="org-ribbon-inner"><div class="org-ribbon-item"><b>100%</b> PNG owned</div><div class="org-ribbon-item"><b>1555</b> Customer Care</div><div class="org-ribbon-item"><b>4G</b> Mobile connectivity</div><div class="org-ribbon-item"><b>Self Care</b> Online account services</div></div></div>`;
-
-    const nav = document.querySelector('nav');
-    if (nav) nav.insertAdjacentHTML('afterend', slider);
+    // Hide the original first impression so each concept gets a stronger presentation-grade opening.
     const oldHero = document.querySelector('.hero');
-    if (oldHero) oldHero.style.display='none';
-    if (title.includes('Digital Self Service')) {
+    if (oldHero) oldHero.style.display = 'none';
+    if (variant === 'executive') {
       const oldHeroRow = document.querySelector('.heroRow');
-      if (oldHeroRow) oldHeroRow.style.display='none';
+      if (oldHeroRow) oldHeroRow.style.display = 'none';
     }
 
-    const campaign = `<section class="ref-campaign"><div class="ref-campaign-inner"><div><small>INTERNATIONAL CALLING</small><h2>The world is your oyster.</h2><p>New International Call Plans make it easier to stay connected with family, friends and business contacts beyond Papua New Guinea.</p></div><div class="ref-campaign-price"><small>PLANS FROM</small><strong>K10</strong><b>21 countries</b><br><a href="#">View international plans</a></div></div></section>`;
-    const selfCare = `<div class="ref-selfcare"><div class="ref-selfcare-inner"><div><h3>Telikom Self Care. Manage your credit online.</h3><p>Top up, check balances, manage bundles and stay in control online.</p></div><a href="#">Open Self Care</a></div></div>`;
-    const serviceBand = `<section class="ref-service-band"><div class="ref-service-inner"><div class="ref-service-head"><h2>Services built around how PNG connects</h2><p>Clear pathways for households, organisations and national infrastructure.</p></div><div class="ref-service-grid"><article class="ref-service-card"><div class="ref-service-icon">⌂</div><h3>Fixed Broadband</h3><p>Reliable fixed connectivity for homes and organisations.</p><a href="#">Explore fixed broadband</a></article><article class="ref-service-card"><div class="ref-service-icon">▦</div><h3>Business Systems</h3><p>Digital systems and services supporting modern business operations.</p><a href="#">Explore business systems</a></article><article class="ref-service-card"><div class="ref-service-icon">⌁</div><h3>Business Data</h3><p>Dedicated communications services for enterprises across PNG.</p><a href="#">Explore business data</a></article></div></div></section>`;
-    const trust = `<section class="ref-trust"><div class="ref-trust-inner"><div class="ref-trust-head"><h2>Why choose Telikom?</h2><p>A Papua New Guinean network built around local ownership, practical value, self-service and dependable connectivity.</p></div><div class="ref-trust-grid"><div class="ref-trust-card"><span>✓</span><b>100% PNG Owned</b><small>A national telecommunications company serving Papua New Guinea.</small></div><div class="ref-trust-card"><span>▣</span><b>No Hidden Fees</b><small>Clearer choices and easier control of voice and data usage.</small></div><div class="ref-trust-card"><span>▤</span><b>Bring Your Own Device</b><small>Use a compatible device with your Telikom SIM.</small></div><div class="ref-trust-card"><span>◉</span><b>Unlimited Calls & Text</b><small>Selected packages help keep people connected.</small></div><div class="ref-trust-card"><span>↗</span><b>Easy Online Self Care</b><small>Manage top-up, credit and services online.</small></div><div class="ref-trust-card"><span>4G</span><b>4G Connectivity</b><small>Mobile connectivity for work, communication and daily life.</small></div></div></div></section>`;
-    const after=(el,html)=>el&&el.insertAdjacentHTML('afterend',html), before=(el,html)=>el&&el.insertAdjacentHTML('beforebegin',html);
+    const imagery = {
+      community: 'https://www.fao.org/images/faoraplibraries/default-album/farmers-and-agripreneurs-actively-participate-in-a-hands-on-training-session-provided-by-the-eu-streit-png-programme.jpg?sfvrsn=4cc42070_1',
+      infrastructure: 'https://mb.cision.com/Public/15029/2108514/94c87f17a0ea051a_org.jpg',
+      local: 'https://blog.apnic.net/wp-content/uploads/2016/04/Goroka-EHP.jpg',
+      youth: 'https://www.pnglng.com/media/PNG-LNG-Media/Media%20Release%20Images/Flying-labs_PNG-LNG-Article.png?ext=.png'
+    };
 
-    if(title.includes('Consumer Services Hub')){ const dock=document.querySelector('.dock'); after(dock,selfCare+campaign); before(document.querySelector('footer'),serviceBand); const sat=document.querySelector('.sat'); if(sat) after(sat,trust); }
-    else if(title.includes('Connected Nation')){ const services=document.querySelector('.services')?.closest('section'); if(services) after(services,serviceBand); before(document.querySelector('footer'),trust); }
-    else if(title.includes('Balanced Corporate')){ after(document.querySelector('.quick'),campaign); after(document.querySelector('.business'),serviceBand); before(document.querySelector('footer'),trust); }
-    else if(title.includes('National Connectivity')){ after(document.querySelector('.dock'),selfCare); const planSec=[...document.querySelectorAll('section')].find(s=>s.textContent.includes('Gutpela Mobile Data')); if(planSec) after(planSec,campaign); before(document.querySelector('footer'),trust); }
+    const slideSets = {
+      consumer: [
+        ['A national network for everyday PNG.','Mobile, home internet, Self Care and support brought together in one trusted Telikom experience.','Explore Mobile Plans','Open Self Care',imagery.community,'PERSONAL • HOME • BUSINESS'],
+        ['Built to connect people, businesses and communities.','From daily mobile data to fixed broadband and remote connectivity, Telikom supports how Papua New Guinea communicates.','Explore Services','Check Coverage',imagery.infrastructure,'NATIONAL CONNECTIVITY'],
+        ['More than a mobile plan. A connection to what matters.','Simple digital services, local support and practical connectivity for life, work and opportunity across PNG.','View Offers','Find Support',imagery.local,'100% PNG OWNED']
+      ],
+      nation: [
+        ['Connecting Papua New Guinea at national scale.','A telecommunications network serving people, enterprise and public institutions across a uniquely demanding geography.','Explore Network Services','Business Solutions',imagery.infrastructure,'NATIONAL INFRASTRUCTURE'],
+        ['Critical connectivity for organisations that cannot stand still.','Business data, fixed broadband, voice, hosting and satellite services designed for operational continuity.','Enterprise Services','Talk to Telikom Business',imagery.local,'BUSINESS & GOVERNMENT'],
+        ['Extending access beyond the easy-to-reach.','Remote and satellite connectivity helps link communities, field operations and essential services across PNG.','Explore VSAT','See Coverage',imagery.community,'REMOTE CONNECTIVITY']
+      ],
+      corporate: [
+        ['Confidence built on local capability.','A modern Telikom experience that balances customer convenience, business capability and national telecommunications responsibility.','Explore Services','About Telikom',imagery.community,'ESTABLISHED • LOCAL • TRUSTED'],
+        ['Digital services with the strength of a national operator.','Mobile, fixed, enterprise and satellite capabilities presented through one clear, dependable customer experience.','View Portfolio','Open Self Care',imagery.infrastructure,'ONE TELIKOM'],
+        ['Connectivity that supports PNG progress.','Helping homes, organisations and communities participate in the country’s digital future.','Discover Connectivity','Media Centre',imagery.youth,'CONNECTING PNG']
+      ],
+      human: [
+        ['Every connection has a human story.','Telikom connects families, students, businesses and communities across Papua New Guinea.','Explore Personal Services','Community Stories',imagery.community,'PEOPLE FIRST'],
+        ['From the Highlands to the islands.','A network designed around the realities of PNG geography, local communities and everyday communication.','Check Coverage','Remote Connectivity',imagery.local,'ACROSS PAPUA NEW GUINEA'],
+        ['Local capability. National purpose.','Technology matters most when it improves access, opportunity and connection for people.','Our Story','Explore Services',imagery.youth,'PNG OWNED']
+      ],
+      executive: [
+        ['Telikom services, organised around the customer.','A digital-first gateway to plans, payments, service management, business solutions and support.','Open Self Care','View Services',imagery.infrastructure,'DIGITAL SERVICE PLATFORM'],
+        ['Enterprise capability with national reach.','Business data, fixed connectivity, voice, systems and satellite services for organisations across PNG.','Business Portfolio','Talk to Telikom',imagery.local,'ENTERPRISE & GOVERNMENT'],
+        ['A trusted national operator, ready for the next chapter.','Bringing together local ownership, modern digital access and communications infrastructure in one confident experience.','Explore Telikom','View Network',imagery.community,'100% PNG OWNED']
+      ]
+    };
 
-    const deviceContainer=document.querySelector('.catalog,.devices');
-    if(deviceContainer&&deviceContainer.children.length===4&&!title.includes('Digital Self Service')){
-      const cls=deviceContainer.classList.contains('catalog')?'visual':'deviceVisual';
-      [['RED-X GROOVE','RED-X smartphone'],['RED-X DASH-X','RED-X smartphone'],['RED-X PORO','Feature phone'],['RED-X Blitz','Feature phone']].forEach(([name,type])=>{const card=document.createElement('div');card.className='device ref-device-extra';card.innerHTML=`<div class="${cls}">${name}</div><small>${type}</small><h4>${name}</h4><b>Explore</b>`;deviceContainer.appendChild(card);});
+    const slides = slideSets[variant];
+    const hero = document.createElement('section');
+    hero.className = `institutional-hero ${variant}`;
+    hero.innerHTML = slides.map((s,i)=>`<div class="inst-slide ${i===0?'active':''}" data-slide="${i}"><div class="inst-bg" style="background-image:url('${s[4]}')"></div><div class="inst-wrap"><div class="inst-copy"><span class="inst-kicker">${s[5]}</span><h1>${s[0]}</h1><p>${s[1]}</p><div class="inst-actions"><a href="#">${s[2]} →</a><a class="alt" href="#">${s[3]}</a></div></div><aside class="inst-proof"><span class="proof-label">Telikom at a glance</span><h3>Local strength. National responsibility.</h3><div class="inst-proof-grid"><div><b>100% PNG Owned</b><small>Locally owned telecommunications company</small></div><div><b>Customer Care 1555</b><small>Direct access to Telikom support</small></div><div><b>Mobile & Fixed</b><small>Everyday and organisational connectivity</small></div><div><b>Satellite Services</b><small>Connectivity for remote locations</small></div></div></aside></div></div>`).join('') + `<div class="inst-controls"><button class="inst-arrow prev" aria-label="Previous slide">‹</button><div class="inst-dots">${slides.map((_,i)=>`<button class="${i===0?'active':''}" data-go="${i}" aria-label="Slide ${i+1}"></button>`).join('')}</div><button class="inst-arrow next" aria-label="Next slide">›</button></div>`;
+
+    const nav = document.querySelector('nav,.nav');
+    if (nav) nav.insertAdjacentElement('afterend', hero); else document.body.insertAdjacentElement('afterbegin', hero);
+
+    let current = 0, timer;
+    const heroSlides = [...hero.querySelectorAll('.inst-slide')];
+    const dots = [...hero.querySelectorAll('.inst-dots button')];
+    const show = idx => { current=(idx+heroSlides.length)%heroSlides.length; heroSlides.forEach((el,i)=>el.classList.toggle('active',i===current)); dots.forEach((el,i)=>el.classList.toggle('active',i===current)); };
+    const autoplay = () => { clearInterval(timer); timer=setInterval(()=>show(current+1),6500); };
+    hero.querySelector('.next').addEventListener('click',()=>{show(current+1);autoplay()});
+    hero.querySelector('.prev').addEventListener('click',()=>{show(current-1);autoplay()});
+    dots.forEach(d=>d.addEventListener('click',()=>{show(+d.dataset.go);autoplay()}));
+    hero.addEventListener('mouseenter',()=>clearInterval(timer)); hero.addEventListener('mouseleave',autoplay); autoplay();
+
+    const proofStrip = `<div class="national-proof-strip"><div class="national-proof-inner"><div class="national-proof-item"><span class="national-proof-icon">PNG</span><div><b>100% PNG Owned</b><small>National telecommunications company</small></div></div><div class="national-proof-item"><span class="national-proof-icon">4G</span><div><b>Mobile Connectivity</b><small>Everyday digital access</small></div></div><div class="national-proof-item"><span class="national-proof-icon">⌂</span><div><b>Fixed Broadband</b><small>Home & organisation services</small></div></div><div class="national-proof-item"><span class="national-proof-icon">◌</span><div><b>Remote Connectivity</b><small>VSAT / satellite capability</small></div></div><div class="national-proof-item"><span class="national-proof-icon">1555</span><div><b>Local Support</b><small>Customer Care access</small></div></div></div></div>`;
+    hero.insertAdjacentHTML('afterend', proofStrip);
+
+    const roleSection = `<section class="institutional-section national-role"><div class="institutional-inner"><div class="institutional-heading"><div><span class="eyebrow">TELIKOM’S NATIONAL ROLE</span><h2>Connectivity for people, business and public services</h2><p>A stronger institutional presentation of the areas a national telecommunications operator is expected to support.</p></div><a class="institutional-link" href="#">Explore Telikom</a></div><div class="role-grid"><article class="role-lead"><div><span class="inst-kicker">NATIONAL CONNECTIVITY</span><h3>Infrastructure that enables everyday life and essential operations.</h3><p>Telikom brings together mobile, fixed, business and remote connectivity for customers and organisations across Papua New Guinea.</p></div></article><div class="role-cards"><article class="role-card"><span>01</span><h4>People & Households</h4><p>Mobile data, home internet, Self Care, support and everyday digital access.</p></article><article class="role-card"><span>02</span><h4>Business & Enterprise</h4><p>Business data, systems, hosting, voice and managed communications.</p></article><article class="role-card"><span>03</span><h4>Government & Public Services</h4><p>Reliable communications pathways for institutions and operational teams.</p></article><article class="role-card"><span>04</span><h4>Remote Communities</h4><p>Satellite and remote-connectivity options for difficult-to-reach locations.</p></article></div></div></div></section>`;
+
+    const infraSection = `<section class="institutional-section infrastructure-band"><div class="institutional-inner infra-grid"><div class="infra-intro"><span class="inst-kicker">NETWORK CAPABILITY</span><h2>A telecommunications portfolio designed for PNG realities.</h2><p>Different customers need different forms of connectivity. The site now makes that breadth visible rather than presenting Telikom like a small consumer-only brand.</p><a class="inst-actions" href="#" style="text-decoration:none;margin-top:22px"><span style="display:inline-flex;padding:11px 15px;border:1px solid rgba(255,255,255,.28);border-radius:8px;color:#fff;font-weight:800">Explore network services →</span></a></div><div class="infra-points"><div class="infra-point"><span class="num">01</span><b>Mobile & 4G</b><small>Consumer and organisational mobile connectivity.</small></div><div class="infra-point"><span class="num">02</span><b>Fixed Broadband</b><small>Home and business fixed connectivity services.</small></div><div class="infra-point"><span class="num">03</span><b>Business Data & Systems</b><small>Connectivity and digital services for organisations.</small></div><div class="infra-point"><span class="num">04</span><b>VSAT & Satellite</b><small>Remote connectivity for sites and communities.</small></div></div></div></section>`;
+
+    const publicSection = `<section class="institutional-section public-service"><div class="institutional-inner"><div class="institutional-heading"><div><span class="eyebrow">SERVICE PORTFOLIO</span><h2>Built for more than one type of customer</h2><p>Clear service groupings help Telikom look like the broad national operator it is, not a small agency-built brochure site.</p></div></div><div class="public-grid"><article class="public-card"><div class="pc-icon">P</div><h3>Personal & Home</h3><p>Everyday connectivity and account services for individuals and households.</p><ul><li>Gutpela Mobile Data</li><li>Home Internet & Special Passes</li><li>Top Up, Self Care & Support</li></ul></article><article class="public-card"><div class="pc-icon">B</div><h3>Business & Enterprise</h3><p>Operational communications and infrastructure for organisations of different sizes.</p><ul><li>Business Data & Fixed Broadband</li><li>Business Systems & Hosting</li><li>Voice, SIP Trunk & CUG / PUG</li></ul></article><article class="public-card"><div class="pc-icon">N</div><h3>National & Remote Connectivity</h3><p>Connectivity options designed for PNG’s geography and hard-to-reach locations.</p><ul><li>VSAT / Kacific</li><li>Remote-site connectivity</li><li>Community & infrastructure use cases</li></ul></article></div></div></section>`;
+
+    const trustSection = `<section class="institutional-section trust-panel"><div class="institutional-inner"><div class="institutional-heading" style="position:relative"><div><span class="eyebrow" style="color:#7ed0fb">WHY TELIKOM</span><h2>Trust built through local ownership and practical service</h2></div></div><div class="trust-grid"><div class="trust-item"><span>✓</span><b>100% PNG Owned</b><small>Locally rooted and nationally focused.</small></div><div class="trust-item"><span>▣</span><b>No Hidden Fees</b><small>Clearer offers and straightforward service choices.</small></div><div class="trust-item"><span>▤</span><b>Bring Your Own Device</b><small>Use compatible devices with Telikom services.</small></div><div class="trust-item"><span>◉</span><b>Calls & Text</b><small>Selected plans support everyday communication needs.</small></div><div class="trust-item"><span>↗</span><b>Online Self Care</b><small>Manage account activity through digital channels.</small></div><div class="trust-item"><span>4G</span><b>Modern Connectivity</b><small>Mobile services supporting work and daily life.</small></div></div></div></section>`;
+
+    // Place richer institutional modules in slightly different orders to preserve concept distinction.
+    const firstContent = document.querySelector('.dock,.quick,.workspace main,.workspace,.section');
+    if (variant === 'consumer') {
+      const dock = document.querySelector('.dock'); if (dock) dock.insertAdjacentHTML('afterend', publicSection);
+      const sat = document.querySelector('.sat'); if (sat) sat.insertAdjacentHTML('beforebegin', infraSection);
+      const footer = document.querySelector('footer'); if (footer) footer.insertAdjacentHTML('beforebegin', trustSection);
+    } else if (variant === 'nation') {
+      hero.nextElementSibling?.insertAdjacentHTML('afterend', infraSection + roleSection);
+      const footer = document.querySelector('footer'); if (footer) footer.insertAdjacentHTML('beforebegin', trustSection);
+    } else if (variant === 'corporate') {
+      const quick = document.querySelector('.quick'); if (quick) quick.insertAdjacentHTML('afterend', roleSection);
+      const business = document.querySelector('.business'); if (business) business.insertAdjacentHTML('afterend', infraSection);
+      const footer = document.querySelector('footer'); if (footer) footer.insertAdjacentHTML('beforebegin', trustSection);
+    } else if (variant === 'human') {
+      hero.nextElementSibling?.insertAdjacentHTML('afterend', roleSection);
+      const footer = document.querySelector('footer'); if (footer) footer.insertAdjacentHTML('beforebegin', publicSection + trustSection);
+    } else {
+      const workspace = document.querySelector('.workspace'); if (workspace) workspace.insertAdjacentHTML('beforebegin', infraSection);
+      const footer = document.querySelector('footer'); if (footer) footer.insertAdjacentHTML('beforebegin', publicSection + trustSection);
     }
 
-    const sliderEl=document.querySelector('.org-slider'), slideEls=[...document.querySelectorAll('.org-slide')], dots=[...document.querySelectorAll('.org-dot')];
-    let current=0,timer;
-    const show=i=>{current=(i+slideEls.length)%slideEls.length;slideEls.forEach((el,n)=>el.classList.toggle('active',n===current));dots.forEach((el,n)=>el.classList.toggle('active',n===current));};
-    const play=()=>{clearInterval(timer);timer=setInterval(()=>show(current+1),6500)};
-    document.querySelector('.org-prev')?.addEventListener('click',()=>{show(current-1);play()});
-    document.querySelector('.org-next')?.addEventListener('click',()=>{show(current+1);play()});
-    dots.forEach((d,i)=>d.addEventListener('click',()=>{show(i);play()}));
-    sliderEl?.addEventListener('mouseenter',()=>clearInterval(timer));sliderEl?.addEventListener('mouseleave',play);play();
+    // International calling and self-care campaign content from the current Telikom reference.
+    const campaign = `<section class="ref-campaign"><div class="ref-campaign-inner"><div><span class="inst-kicker">INTERNATIONAL CALLING</span><h2>The world is your oyster.</h2><p>New International Call Plans make it easier to stay connected beyond Papua New Guinea.</p><div class="ref-campaign-meta"><span>Plans from K10</span><span>21 countries</span><span>International calling</span></div></div><div class="ref-campaign-price"><small>PLANS FROM</small><strong>K10</strong><b>Connect beyond PNG</b><a href="#">View international plans →</a></div></div></section>`;
+    const selfCare = `<div class="ref-selfcare"><div class="ref-selfcare-inner"><div><h3>Telikom Self Care. Manage your credit online.</h3><p>Top up, check balances, manage bundles and stay in control from one convenient account experience.</p></div><a href="#">Open Self Care →</a></div></div>`;
+    if (variant === 'consumer') { const dock=document.querySelector('.dock'); if(dock) dock.insertAdjacentHTML('beforebegin',campaign+selfCare); }
+    if (variant === 'corporate') { const quick=document.querySelector('.quick'); if(quick) quick.insertAdjacentHTML('beforebegin',campaign); }
+    if (variant === 'human') { const dock=document.querySelector('.dock'); if(dock) dock.insertAdjacentHTML('beforebegin',selfCare); }
 
-    document.querySelectorAll('img').forEach((img,i)=>{if(!img.alt)img.alt=i===0?'Telikom PNG':'Telikom content image';if(img.src!==logoSrc&&!img.closest('.hero')){img.loading='lazy';img.decoding='async'}else img.fetchPriority='high'});
-    const revealTargets=[...document.querySelectorAll('section,.dock,.quick,.panel,.plan,.device,.story,.news,.biz,.svc,.tile,.metric,.solution,.tool,.ref-selfcare')];
-    revealTargets.forEach((el,i)=>{if(el.classList.contains('org-slider'))return;el.classList.add('reveal');if(i%4)el.classList.add(`reveal-delay-${i%4}`)});
-    if('IntersectionObserver'in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.06});revealTargets.forEach(el=>io.observe(el))}else revealTargets.forEach(el=>el.classList.add('is-visible'));
+    // Expand small product catalogues with the additional RED-X models from the reference site.
+    const deviceContainer = document.querySelector('.catalog,.devices');
+    if (deviceContainer && deviceContainer.children.length === 4 && variant !== 'executive') {
+      const cls = deviceContainer.classList.contains('catalog') ? 'visual' : 'deviceVisual';
+      [['RED-X GROOVE','RED-X smartphone'],['RED-X DASH-X','RED-X smartphone'],['RED-X PORO','Feature phone'],['RED-X Blitz','Feature phone']].forEach(([name,type])=>{
+        const card=document.createElement('div'); card.className='device'; card.innerHTML=`<div class="${cls}">${name}</div><small>${type}</small><h4>${name}</h4><b>Explore</b>`; deviceContainer.appendChild(card);
+      });
+    }
+
+    // Performance and accessibility polish.
+    document.querySelectorAll('img').forEach((img,i)=>{
+      if (!img.alt) img.alt = i===0 ? 'Telikom PNG' : 'Telikom content image';
+      if (img.src !== logoSrc && !img.closest('.institutional-hero')) { img.loading='lazy'; img.decoding='async'; }
+      else img.fetchPriority='high';
+    });
+
+    const revealTargets=[...document.querySelectorAll('section,.dock,.quick,.panel,.plan,.device,.story,.news,.biz,.svc,.tile,.metric,.solution,.tool,.role-card,.infra-point,.public-card,.trust-item')];
+    revealTargets.forEach(el=>el.classList.add('reveal'));
+    if ('IntersectionObserver' in window) {
+      const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{rootMargin:'0px 0px -7% 0px',threshold:.04});
+      revealTargets.forEach(el=>io.observe(el));
+    } else revealTargets.forEach(el=>el.classList.add('is-visible'));
+
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+      const id=a.getAttribute('href'); if(!id||id==='#') return; const target=document.querySelector(id); if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'})}
+    }));
   };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',onReady,{once:true});else onReady();
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',onReady,{once:true}); else onReady();
 })();
