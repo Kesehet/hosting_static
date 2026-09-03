@@ -33,7 +33,7 @@
     living:[
       'Mt Hagen Cultural Show PNG 2008 (cropped).jpg',
       '(Mount Hagen cultural show in Papua New Guinea) - DPLA - 71fc5e53d6c7260785622a2eaf10b642.jpg',
-      "Traditional Morobe 'sing sing' (10730256135).jpg"
+      'Headdress (48858644898).jpg'
     ]
   };
 
@@ -55,9 +55,9 @@
     if(variant==='human'){
       const mosaic=[...document.querySelectorAll('.ux-story-tile')];
       const extra=[
-        'Mt. Hagen Sing sing (49074334702).jpg',
-        "Traditional Morobe 'sing sing' (10730545163).jpg",
-        'Goroka Show - Lastra.jpg'
+        '(Mount Hagen cultural show in Papua New Guinea) - DPLA - b9cdb88827e088577c37a24397fde560.jpg',
+        'Inbound7716236618187504473.jpg',
+        'Headdress (48858644898).jpg'
       ];
       mosaic.forEach((el,i)=>{if(extra[i]) el.style.backgroundImage=`url("${enc(extra[i])}")`;});
     }
