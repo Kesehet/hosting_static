@@ -2,6 +2,9 @@ name: Telikom Full Page Screenshots
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/telikom-screenshots.yml'
 
 permissions:
   contents: read
@@ -9,64 +12,36 @@ permissions:
 jobs:
   screenshots:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 8
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-
       - name: Install Playwright
         run: |
           npm init -y
           npm install playwright@1.55.0
-          npx playwright install --with-deps chromium
-
-      - name: Start local web server
+          npx playwright install chromium
+      - name: Capture screenshots
         run: |
-          python3 -m http.server 8080 --bind 127.0.0.1 > /tmp/telikom-server.log 2>&1 &
-          echo $! > /tmp/telikom-server.pid
-          sleep 2
-
-      - name: Capture all six concepts
-        run: |
-          mkdir -p screenshots/desktop screenshots/mobile
+          python3 -m http.server 8080 --bind 127.0.0.1 >/tmp/telikom-server.log 2>&1 &
+          mkdir -p screenshots
           cat > capture.mjs <<'EOF'
           import { chromium } from 'playwright';
-          const browser = await chromium.launch({headless:true});
-          async function capture(viewport, folder, label) {
-            const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
-            const page = await context.newPage();
-            page.setDefaultTimeout(45000);
-            for (let i = 1; i <= 6; i++) {
-              const url = `http://127.0.0.1:8080/telikom-homepage-mocks/${i}.html`;
-              await page.goto(url, { waitUntil: 'domcontentloaded' });
-              try { await page.waitForLoadState('networkidle', { timeout: 15000 }); } catch {}
-              await page.waitForTimeout(3500);
-              await page.evaluate(async () => {
-                const step = Math.max(500, window.innerHeight * 0.75);
-                for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
-                  window.scrollTo(0, y);
-                  await new Promise(r => setTimeout(r, 100));
-                }
-                window.scrollTo(0, 0);
-                await new Promise(r => setTimeout(r, 500));
-              });
-              await page.screenshot({ path: `${folder}/telikom-design-${i}-${label}-full.png`, fullPage: true, animations: 'disabled' });
-            }
-            await context.close();
+          const browser=await chromium.launch({headless:true});
+          const context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:1});
+          const page=await context.newPage();
+          for(let i=1;i<=6;i++){
+            await page.goto(`http://127.0.0.1:8080/telikom-homepage-mocks/${i}.html`,{waitUntil:'domcontentloaded',timeout:30000});
+            await page.waitForTimeout(2500);
+            await page.evaluate(async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=800){window.scrollTo(0,y);await new Promise(r=>setTimeout(r,60))}window.scrollTo(0,0);await new Promise(r=>setTimeout(r,300))});
+            await page.screenshot({path:`screenshots/telikom-design-${i}-full.png`,fullPage:true,animations:'disabled'});
           }
-          await capture({ width: 1440, height: 1000 }, 'screenshots/desktop', 'desktop');
-          await capture({ width: 390, height: 844 }, 'screenshots/mobile', 'mobile');
           await browser.close();
           EOF
           node capture.mjs
-
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: telikom-full-page-screenshots
           path: screenshots/
