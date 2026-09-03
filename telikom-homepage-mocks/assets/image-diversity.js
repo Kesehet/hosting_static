@@ -56,8 +56,8 @@
       const mosaic=[...document.querySelectorAll('.ux-story-tile')];
       const extra=[
         '(Mount Hagen cultural show in Papua New Guinea) - DPLA - b9cdb88827e088577c37a24397fde560.jpg',
-        'Inbound7716236618187504473.jpg',
-        'Headdress (48858644898).jpg'
+        'Mount Hagen Sing Sing 2019 (49060446801).jpg',
+        'Papua New Guinea Sing Sing. (48986244873).jpg'
       ];
       mosaic.forEach((el,i)=>{if(extra[i]) el.style.backgroundImage=`url("${enc(extra[i])}")`;});
     }
