@@ -3,6 +3,7 @@
 
   const current=document.currentScript;
   const base=current&&current.src?new URL('.',current.src).href:'assets/';
+  const chatbotCdn='https://cdn.jsdelivr.net/gh/Kesehet/hosting_static@main/telikom-homepage-mocks/assets/';
 
   const reloadOnce=()=>{
     const href=window.location.href;
@@ -37,7 +38,7 @@
 
   if(reloadOnce()) return;
 
-  const load=(file,key)=>{
+  const loadLocal=(file,key)=>{
     if(document.querySelector(`script[data-${key}]`)) return;
     const s=document.createElement('script');
     s.src=base+file+'?v='+Date.now()+'_'+Math.random().toString(36).slice(2,8);
@@ -46,9 +47,19 @@
     document.body.appendChild(s);
   };
 
+  const loadChatbot=()=>{
+    if(document.querySelector('script[data-telikom-chatbot]')) return;
+    const s=document.createElement('script');
+    s.src=chatbotCdn+'chatbot-6.js?v='+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+    s.async=true;
+    s.setAttribute('data-telikom-chatbot','6');
+    document.body.appendChild(s);
+  };
+
   const run=()=>{
-    load('chatbot-vibes.js','chatbot-direct');
-    load('6-core.js','six-core');
+    // Design 6 has its own standalone futuristic chatbot file.
+    loadChatbot();
+    loadLocal('6-core.js','six-core');
   };
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run,{once:true}); else run();
