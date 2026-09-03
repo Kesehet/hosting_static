@@ -2,6 +2,9 @@ name: Telikom Full Page Screenshots
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/telikom-screenshots.yml'
 
 permissions:
   contents: read
@@ -34,10 +37,9 @@ jobs:
       - name: Capture all six concepts
         run: |
           mkdir -p screenshots/desktop screenshots/mobile
-          cat > /tmp/capture.mjs <<'EOF'
+          cat > capture.mjs <<'EOF'
           import { chromium } from 'playwright';
           const browser = await chromium.launch({headless:true});
-
           async function capture(viewport, folder, label) {
             const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
             const page = await context.newPage();
@@ -60,12 +62,11 @@ jobs:
             }
             await context.close();
           }
-
           await capture({ width: 1440, height: 1000 }, 'screenshots/desktop', 'desktop');
           await capture({ width: 390, height: 844 }, 'screenshots/mobile', 'mobile');
           await browser.close();
           EOF
-          node /tmp/capture.mjs
+          node capture.mjs
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
