@@ -3,6 +3,14 @@
     const title = document.title || '';
     const variant = title.includes('Consumer Services Hub') ? 'consumer' : title.includes('Connected Nation') ? 'nation' : title.includes('Balanced Corporate') ? 'corporate' : title.includes('National Connectivity') ? 'human' : 'executive';
 
+    /* Load the chatbot directly from the homepage bootstrap so it does not depend on the later audience-map chain. */
+    if (!document.querySelector('script[data-chatbot-vibes]')) {
+      const chat = document.createElement('script');
+      chat.src = 'assets/chatbot-vibes.js?v=20260903-1254';
+      chat.dataset.chatbotVibes = '1';
+      document.body.appendChild(chat);
+    }
+
     const style = document.createElement('style');
     style.textContent = `
       .fresh-nav-hub{padding:62px 28px;background:#fff;border-top:1px solid #edf2f5;border-bottom:1px solid #e5edf3}
@@ -33,9 +41,7 @@
     const hub = `
       <section class="fresh-nav-hub ${variant}">
         <div class="fresh-nav-inner">
-          <div class="fresh-nav-head">
-            <div><small>Start here</small><h2>Explore Telikom services</h2><p>Built from the current Telikom frontend structure so customers can immediately find personal, business, device, satellite, support and company pages.</p></div>
-          </div>
+          <div class="fresh-nav-head"><div><small>Start here</small><h2>Explore Telikom services</h2><p>Built from the current Telikom frontend structure so customers can immediately find personal, business, device, satellite, support and company pages.</p></div></div>
           <div class="fresh-nav-grid">
             <a class="fresh-nav-card" href="#"><span class="fresh-nav-icon">◉</span><h3>Personal Services</h3><p>Gutpela Mobile Data, MOA Plus Packs, International Call Plans, roaming bundles and special mobile passes.</p></a>
             <a class="fresh-nav-card featured" href="#business"><span class="fresh-nav-icon">▦</span><h3>Business Services</h3><p>Fixed business connectivity, Data, Co-Location, Business Systems, SIP Trunk, Web & Hosting, voice and mobile business solutions.</p></a>
@@ -46,48 +52,20 @@
             <a class="fresh-nav-card" href="#"><span class="fresh-nav-icon">◎</span><h3>News & Network Updates</h3><p>Public Notices, Promotions & Offers, Network Updates, Press Releases, Community & CSR and Media Kit.</p></a>
             <a class="fresh-nav-card" href="#"><span class="fresh-nav-icon">?</span><h3>Support, Stores & Self Care</h3><p>FAQs, retail locations, customer support, account management, billing and service assistance.</p></a>
           </div>
-          <div class="fresh-new-strip">
-            <div class="fresh-new-intro"><small>CURRENT SITE HIGHLIGHTS</small><h3>More of Telikom, visible from home.</h3><p>Important destinations from the new frontend should not be buried several clicks deep.</p></div>
-            <div class="fresh-new-item"><b>U-TOKMoa</b><span>Fixed voice & data combo plans.</span><a href="#">Explore U-TOKMoa →</a></div>
-            <div class="fresh-new-item"><b>Home Entertainment</b><span>Broadband, Telikom TV and fixed voice package.</span><a href="#">View packages →</a></div>
-            <div class="fresh-new-item"><b>Careers & Company</b><span>Jobs, About Us and current Telikom updates.</span><a href="#">Explore Telikom →</a></div>
-          </div>
+          <div class="fresh-new-strip"><div class="fresh-new-intro"><small>CURRENT SITE HIGHLIGHTS</small><h3>More of Telikom, visible from home.</h3><p>Important destinations from the new frontend should not be buried several clicks deep.</p></div><div class="fresh-new-item"><b>U-TOKMoa</b><span>Fixed voice & data combo plans.</span><a href="#">Explore U-TOKMoa →</a></div><div class="fresh-new-item"><b>Home Entertainment</b><span>Broadband, Telikom TV and fixed voice package.</span><a href="#">View packages →</a></div><div class="fresh-new-item"><b>Careers & Company</b><span>Jobs, About Us and current Telikom updates.</span><a href="#">Explore Telikom →</a></div></div>
           <div class="fresh-subnav"><a href="#">Store Locator</a><a href="#">Career</a><a href="#">About Us</a><a href="#">Public Notices</a><a href="#">Promotions</a><a href="#">Network Updates</a><a href="#">Contact Us</a></div>
         </div>
       </section>`;
 
     const anchor = document.querySelector('.national-proof-strip, .dock, .quick, .actions');
     if (anchor && !document.querySelector('.fresh-nav-hub')) anchor.insertAdjacentHTML('afterend', hub);
-    else if (!document.querySelector('.fresh-nav-hub')) {
-      const hero = document.querySelector('.institutional-hero, .hero, header');
-      if (hero) hero.insertAdjacentHTML('afterend', hub);
-    }
+    else if (!document.querySelector('.fresh-nav-hub')) { const hero = document.querySelector('.institutional-hero, .hero, header'); if (hero) hero.insertAdjacentHTML('afterend', hub); }
 
     const links = document.querySelector('.nav .links, nav .links');
-    if (links) {
-      const existing = [...links.querySelectorAll('a')];
-      const utility = existing.filter(a => /self care|top up|contact|login/i.test(a.textContent));
-      links.innerHTML = '';
-      ['Personal','Business','Home & Fixed','Devices','News & Media','Stores'].forEach(label => {
-        const a = document.createElement('a'); a.href='#'; a.textContent=label; links.appendChild(a);
-      });
-      utility.forEach(a => links.appendChild(a));
-    }
+    if (links) { const existing = [...links.querySelectorAll('a')]; const utility = existing.filter(a => /self care|top up|contact|login/i.test(a.textContent)); links.innerHTML = ''; ['Personal','Business','Home & Fixed','Devices','News & Media','Stores'].forEach(label => { const a = document.createElement('a'); a.href='#'; a.textContent=label; links.appendChild(a); }); utility.forEach(a => links.appendChild(a)); }
 
-    if (!document.querySelector('script[data-glance-variants]')) {
-      const glance = document.createElement('script');
-      glance.src = 'assets/glance-variants.js';
-      glance.defer = true;
-      glance.dataset.glanceVariants = '1';
-      document.body.appendChild(glance);
-    }
-    if (!document.querySelector('script[data-audience-map]')) {
-      const audience = document.createElement('script');
-      audience.src = 'assets/audience-map.js';
-      audience.defer = true;
-      audience.dataset.audienceMap = '1';
-      document.body.appendChild(audience);
-    }
+    if (!document.querySelector('script[data-glance-variants]')) { const glance = document.createElement('script'); glance.src = 'assets/glance-variants.js'; glance.defer = true; glance.dataset.glanceVariants = '1'; document.body.appendChild(glance); }
+    if (!document.querySelector('script[data-audience-map]')) { const audience = document.createElement('script'); audience.src = 'assets/audience-map.js?v=20260903-1254'; audience.defer = true; audience.dataset.audienceMap = '1'; document.body.appendChild(audience); }
   };
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ready,{once:true}); else ready();
 })();
