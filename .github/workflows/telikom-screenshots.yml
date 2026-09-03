@@ -2,10 +2,6 @@ name: Telikom Full Page Screenshots
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'telikom-homepage-mocks/**'
-      - '.github/workflows/telikom-screenshots.yml'
 
 permissions:
   contents: read
@@ -51,8 +47,6 @@ jobs:
               await page.goto(url, { waitUntil: 'domcontentloaded' });
               try { await page.waitForLoadState('networkidle', { timeout: 15000 }); } catch {}
               await page.waitForTimeout(3500);
-
-              // Trigger lazy-loading / reveal-on-scroll content before capturing.
               await page.evaluate(async () => {
                 const step = Math.max(500, window.innerHeight * 0.75);
                 for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
@@ -62,12 +56,7 @@ jobs:
                 window.scrollTo(0, 0);
                 await new Promise(r => setTimeout(r, 500));
               });
-
-              await page.screenshot({
-                path: `${folder}/telikom-design-${i}-${label}-full.png`,
-                fullPage: true,
-                animations: 'disabled'
-              });
+              await page.screenshot({ path: `${folder}/telikom-design-${i}-${label}-full.png`, fullPage: true, animations: 'disabled' });
             }
             await context.close();
           }
