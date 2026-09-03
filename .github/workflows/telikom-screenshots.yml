@@ -2,9 +2,6 @@ name: Telikom Full Page Screenshots
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/telikom-screenshots.yml'
 
 permissions:
   contents: read
