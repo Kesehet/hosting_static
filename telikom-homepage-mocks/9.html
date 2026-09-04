@@ -9,8 +9,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Kesehet/hosting_static@e7e71b1486cb012924f753cbee3fe852358cd928/telikom-homepage-mocks/assets/9.css">
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/gh/Kesehet/hosting_static@e7e71b1486cb012924f753cbee3fe852358cd928/telikom-homepage-mocks/assets/9.js"></script>
+<style>
+.zone{will-change:transform,opacity,filter}.zone.scroll-active{pointer-events:auto}.three-failed #world{background:radial-gradient(circle at 50% 45%,#0b5f84 0,#062a3c 34%,#03131d 70%)}
+</style>
 </head>
 <body>
 <canvas id="world" aria-hidden="true"></canvas>
@@ -30,5 +31,55 @@
 <div class="status-bar"><span>PNG NATIONAL TELECOMMUNICATIONS</span><span class="status-center">WORLD MODE <i></i> <b id="worldProgress">00%</b></span><button data-zone="company">NEWS / SUPPORT ↗</button></div>
 <div class="chat" id="chat"><div class="chat-panel"><div class="chat-head"><span>✦</span><div><b>TELIKOM AI</b><small>World assistant</small></div></div><div class="chat-msg">Where would you like to go?</div><div class="chat-grid"><button data-zone="personal">Personal</button><button data-zone="business">Business</button><button data-zone="remote">Remote</button><button data-zone="company">Support</button></div></div><div class="chat-peek">✦ Need help navigating?</div><button class="chat-launch" id="chatLaunch" aria-label="Open Telikom AI">✦</button></div>
 <noscript><div class="noscript">This experimental concept requires JavaScript to render the Telikom world.</div></noscript>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(()=>{'use strict';
+const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const order=['home','personal','home-services','business','remote','company'];
+const panels=[...document.querySelectorAll('[data-panel]')];
+const railBtns=[...document.querySelectorAll('.rail [data-zone]')];
+const navBtns=[...document.querySelectorAll('.world-nav [data-zone]')];
+const progressText=document.getElementById('worldProgress');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let targetP=0,smoothP=0,mx=0,my=0,tmx=0,tmy=0;
+function maxScroll(){return Math.max(1,document.documentElement.scrollHeight-innerHeight)}
+function zoneScroll(z){return maxScroll()*(order.indexOf(z)/(order.length-1))}
+function goZone(z){if(!order.includes(z))return;window.scrollTo({top:zoneScroll(z),behavior:reduce?'auto':'smooth'})}
+document.querySelectorAll('[data-zone]').forEach(el=>el.addEventListener('click',e=>{const z=el.dataset.zone;if(z){e.preventDefault();goZone(z)}}));
+addEventListener('scroll',()=>{targetP=clamp(scrollY/maxScroll())},{passive:true});
+addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;tmx=e.clientX/innerWidth-.5;tmy=e.clientY/innerHeight-.5},{passive:true});
+addEventListener('keydown',e=>{const idx=Math.round(smoothP*(order.length-1));if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();goZone(order[Math.min(order.length-1,idx+1)])}if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();goZone(order[Math.max(0,idx-1)])}});
+const menu=document.getElementById('menuBtn');if(menu)menu.onclick=()=>document.body.classList.toggle('mobile-nav-open');
+const chat=document.getElementById('chat'),launch=document.getElementById('chatLaunch');if(chat&&launch)launch.onclick=()=>chat.classList.toggle('open');
+
+let renderer=null,scene=null,camera=null,root=null,core=null,starsPts=null,worldObjects={},slabs=[],zones3D=null;
+const canvas=document.getElementById('world');
+if(window.THREE&&canvas){try{
+ scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x03131d,.018);
+ camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.1,300);camera.position.set(0,5.5,24);
+ renderer=new THREE.WebGLRenderer({canvas,antialias:innerWidth>700,alpha:false,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.setSize(innerWidth,innerHeight);renderer.setClearColor(0x03131d,1);
+ scene.add(new THREE.HemisphereLight(0x8de4ff,0x031017,1.2));const key=new THREE.DirectionalLight(0x57cfff,2.4);key.position.set(8,14,10);scene.add(key);const fill=new THREE.PointLight(0x0a7db9,30,60,2);fill.position.set(-12,8,4);scene.add(fill);
+ root=new THREE.Group();scene.add(root);const grid=new THREE.GridHelper(180,90,0x0a7fae,0x123544);grid.position.y=-3;grid.material.transparent=true;grid.material.opacity=.23;root.add(grid);const floor=new THREE.Mesh(new THREE.PlaneGeometry(180,180),new THREE.MeshBasicMaterial({color:0x051a24,transparent:true,opacity:.55,side:THREE.DoubleSide}));floor.rotation.x=-Math.PI/2;floor.position.y=-3.03;root.add(floor);
+ const sg=new THREE.BufferGeometry(),sa=[];for(let i=0;i<1500;i++)sa.push((Math.random()-.5)*170,Math.random()*80-8,(Math.random()-.5)*170);sg.setAttribute('position',new THREE.Float32BufferAttribute(sa,3));starsPts=new THREE.Points(sg,new THREE.PointsMaterial({color:0x7bdcff,size:.045,transparent:true,opacity:.55,depthWrite:false}));root.add(starsPts);
+ zones3D={home:{pos:new THREE.Vector3(0,3,0),cam:new THREE.Vector3(0,5.5,24),look:new THREE.Vector3(0,1,0)},personal:{pos:new THREE.Vector3(-15,1,-14),cam:new THREE.Vector3(-7,4,2),look:new THREE.Vector3(-15,0,-14)},'home-services':{pos:new THREE.Vector3(14,.5,-17),cam:new THREE.Vector3(7,4,-1),look:new THREE.Vector3(14,0,-17)},business:{pos:new THREE.Vector3(19,2,3),cam:new THREE.Vector3(7,6,10),look:new THREE.Vector3(19,1,3)},remote:{pos:new THREE.Vector3(-18,4,8),cam:new THREE.Vector3(-6,7,15),look:new THREE.Vector3(-18,2,8)},company:{pos:new THREE.Vector3(0,7,-28),cam:new THREE.Vector3(0,8,-11),look:new THREE.Vector3(0,5,-28)}};
+ const mat=(c,o=.84)=>new THREE.MeshStandardMaterial({color:c,metalness:.2,roughness:.42,transparent:true,opacity:o,emissive:c,emissiveIntensity:.08});const mb=mat(0x087fc1),md=mat(0x0a3145,.92),mc=mat(0x39c8ff,.76);
+ function tower(z,s=1){const g=new THREE.Group();g.position.copy(zones3D[z].pos);const base=new THREE.Mesh(new THREE.CylinderGeometry(3.1*s,3.6*s,.55*s,8),md);base.position.y=-2.65;g.add(base);for(let i=0;i<8;i++){const h=(2.2+Math.random()*5.6)*s,w=(.7+Math.random()*1.4)*s,d=(.7+Math.random()*1.4)*s,b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),i%3===0?mc:mb),a=i/8*Math.PI*2,r=(.6+Math.random()*1.8)*s;b.position.set(Math.cos(a)*r,h/2-2.4,Math.sin(a)*r);g.add(b)}root.add(g);worldObjects[z]=g}
+ tower('personal');tower('home-services',.95);tower('business',1.25);tower('company',1.15);
+ core=new THREE.Group();core.position.copy(zones3D.home.pos);root.add(core);core.add(new THREE.Mesh(new THREE.IcosahedronGeometry(4.2,4),new THREE.MeshBasicMaterial({color:0x21aee9,wireframe:true,transparent:true,opacity:.3})));for(let i=0;i<36;i++){const a=Math.random()*Math.PI*2,b=(Math.random()-.5)*Math.PI,p=new THREE.Vector3(3.75*Math.cos(b)*Math.cos(a),3.75*Math.sin(b),3.75*Math.cos(b)*Math.sin(a)),n=new THREE.Mesh(new THREE.SphereGeometry(i%7===0?.1:.055,8,8),new THREE.MeshBasicMaterial({color:i%7===0?0x7ce86c:0x9ceaff}));n.position.copy(p);core.add(n)}worldObjects.home=core;
+ Object.keys(zones3D).filter(z=>z!=='home').forEach((z,i)=>{const p1=zones3D.home.pos.clone().setY(-1),p2=zones3D[z].pos.clone().setY(-1),mid=p1.clone().add(p2).multiplyScalar(.5);mid.y=2+(i%2)*2;const curve=new THREE.QuadraticBezierCurve3(p1,mid,p2);root.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(64)),new THREE.LineBasicMaterial({color:0x3bcfff,transparent:true,opacity:.3})))});
+ for(let i=0;i<20;i++){const s=new THREE.Mesh(new THREE.PlaneGeometry(1.8+Math.random()*2.4,.7+Math.random()*1.3),new THREE.MeshBasicMaterial({color:i%3===0?0x1db8f0:0x0b6c96,transparent:true,opacity:.05+Math.random()*.07,side:THREE.DoubleSide,depthWrite:false}));s.position.set((Math.random()-.5)*55,Math.random()*16-1,(Math.random()-.5)*55);s.userData={y:s.position.y,phase:Math.random()*6};root.add(s);slabs.push(s)}
+}catch(err){console.error('Three init failed',err);document.body.classList.add('three-failed')}}else document.body.classList.add('three-failed');
+
+const camTarget=window.THREE?new THREE.Vector3():null,lookTarget=window.THREE?new THREE.Vector3():null;
+function frame(t=0){requestAnimationFrame(frame);targetP=clamp(scrollY/maxScroll());smoothP=lerp(smoothP,targetP,reduce?1:.075);mx=lerp(mx,tmx,.06);my=lerp(my,tmy,.06);const scaled=smoothP*(order.length-1),nearest=Math.round(scaled);
+ panels.forEach((p,i)=>{const d=i-scaled,ad=Math.abs(d),op=clamp(1-ad*1.05);p.style.opacity=op.toFixed(3);p.style.transform=`translate3d(0,calc(-50% + ${d*80}px),0) scale(${(1-Math.min(ad,.8)*.055).toFixed(3)})`;p.style.filter=`blur(${Math.min(10,ad*8).toFixed(1)}px)`;p.style.pointerEvents=ad<.46?'auto':'none';p.classList.toggle('scroll-active',ad<.46)});
+ railBtns.forEach(b=>b.classList.toggle('active',b.dataset.zone===order[nearest]));navBtns.forEach(b=>b.classList.toggle('active',b.dataset.zone===order[nearest]));if(progressText)progressText.textContent=String(Math.round(smoothP*100)).padStart(2,'0')+'%';
+ if(renderer&&camera&&zones3D){const i=Math.min(order.length-2,Math.floor(scaled)),f=scaled-i,e=f*f*(3-2*f),a=zones3D[order[i]],b=zones3D[order[i+1]];camTarget.lerpVectors(a.cam,b.cam,e);lookTarget.lerpVectors(a.look,b.look,e);camera.position.lerp(camTarget,.11);camera.lookAt(lookTarget.clone().add(new THREE.Vector3(mx*.8,-my*.45,0)));core.rotation.y+=.0018;core.rotation.x=Math.sin(t*.00025)*.06;if(starsPts)starsPts.rotation.y+=.00009;Object.values(worldObjects).forEach((g,j)=>{if(g!==core)g.rotation.y+=.00045*(j%2?1:-1)});slabs.forEach(s=>{s.position.y=s.userData.y+Math.sin(t*.0004+s.userData.phase)*.5;s.rotation.y+=.0003});renderer.render(scene,camera)}
+}
+addEventListener('resize',()=>{if(renderer&&camera){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.6))}});
+targetP=smoothP=clamp(scrollY/maxScroll());frame();
+})();
+</script>
 </body>
 </html>
