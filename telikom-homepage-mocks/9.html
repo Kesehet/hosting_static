@@ -8,141 +8,54 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/9.css?v=1">
-<script defer src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
-<script defer src="assets/9.js?v=1"></script>
+<style>
+:root{--blue:#0a8fd7;--blue2:#4bc8ff;--ink:#eaf7fd;--muted:#9db7c6;--panel:rgba(4,24,35,.62);--line:rgba(147,219,248,.18);--glass:blur(16px);--ease:cubic-bezier(.22,.61,.36,1)}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#03131d;color:var(--ink);font-family:Inter,Arial,sans-serif}body{isolation:isolate}button,a{font:inherit}button{color:inherit}#world{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:-3;touch-action:none}.world-vignette{position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(circle at 60% 44%,transparent 0 30%,rgba(1,8,13,.12) 56%,rgba(1,8,13,.7) 100%),linear-gradient(180deg,rgba(1,10,16,.12),rgba(1,10,16,.56));mix-blend-mode:multiply}.hud-top{position:fixed;left:0;right:0;top:0;z-index:40;height:92px;padding:0 34px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(2,15,23,.8),rgba(2,15,23,.22));backdrop-filter:blur(12px)}.brand{display:flex;align-items:center;gap:13px;color:#fff;text-decoration:none}.brand img{width:auto;height:54px;max-width:205px;object-fit:contain;background:#fff;border-radius:8px;padding:5px 8px}.brand span{font-size:10px;line-height:1.25;color:#b8d8e6;font-weight:700;max-width:108px}.world-nav{justify-self:center;display:flex;align-items:center;gap:4px;padding:5px;border:1px solid var(--line);background:rgba(4,28,40,.3);backdrop-filter:var(--glass);border-radius:999px}.world-nav button,.menu,.status-bar button{border:0;background:transparent;cursor:pointer}.world-nav button{padding:9px 13px;border-radius:999px;font-size:12px;font-weight:700;color:#bad1dc;transition:.25s}.world-nav button:hover,.world-nav button.active{background:rgba(75,200,255,.12);color:#fff}.menu{display:none;font-size:22px}.rail{position:fixed;z-index:35;left:26px;top:50%;transform:translateY(-50%);display:grid;gap:8px}.rail button{width:92px;height:42px;border:1px solid transparent;background:transparent;color:#6f8998;display:grid;grid-template-columns:7px 20px 1fr;gap:8px;align-items:center;text-align:left;cursor:pointer;padding:0 8px;border-radius:8px;transition:.3s var(--ease)}.rail button i{width:5px;height:5px;border-radius:50%;background:#5f7682}.rail button span{font:700 10px ui-monospace,SFMono-Regular,monospace}.rail button b{font-size:10px;letter-spacing:.04em}.rail button:hover,.rail button.active{color:#fff;border-color:var(--line);background:rgba(7,33,46,.48);backdrop-filter:blur(10px)}.rail button.active i{background:var(--blue2);box-shadow:0 0 14px var(--blue2)}.world-ui{position:fixed;inset:0;z-index:10;pointer-events:none}.zone{position:absolute;left:clamp(130px,10vw,190px);top:50%;width:min(770px,calc(100vw - 240px));transform:translate3d(0,-44%,0) scale(.94);opacity:0;pointer-events:none;transition:opacity .5s var(--ease),transform .75s var(--ease),filter .75s var(--ease);filter:blur(8px)}.zone.active{opacity:1;transform:translate3d(0,-50%,0) scale(1);filter:none;pointer-events:auto}.eyebrow{font:800 11px ui-monospace,SFMono-Regular,monospace;letter-spacing:.16em;color:#76d6ff;margin-bottom:18px}.hero-zone h1,.service-zone h2{font-family:Manrope,Inter,sans-serif;letter-spacing:-.055em;margin:0;text-wrap:balance}.hero-zone h1{font-size:clamp(62px,8vw,118px);line-height:.88;max-width:900px;text-shadow:0 16px 60px rgba(0,0,0,.4)}.hero-zone p{max-width:610px;font-size:17px;line-height:1.7;color:#bed3dc;margin:24px 0 0}.hero-actions{display:flex;gap:10px;margin-top:30px}.hero-actions button{border:1px solid rgba(255,255,255,.23);background:rgba(5,30,42,.44);backdrop-filter:blur(10px);padding:13px 17px;border-radius:10px;cursor:pointer;font-weight:800;font-size:13px}.hero-actions button.primary{background:linear-gradient(135deg,#087ec0,#13a9e7);border-color:#58d0ff}.hero-hint{margin-top:42px;color:#728e9c;font:600 10px ui-monospace,SFMono-Regular,monospace;display:flex;align-items:center;gap:8px}.hero-hint span{color:#acd7e8}.hero-hint i{width:30px;height:1px;background:#526c78}.service-zone{width:min(840px,calc(100vw - 260px));padding:28px 0}.service-zone .zone-number{position:absolute;left:-52px;top:24px;font:800 11px ui-monospace,SFMono-Regular,monospace;color:#55727f}.service-zone h2{font-size:clamp(42px,5.2vw,78px);line-height:.94;max-width:860px}.service-zone>p{max-width:650px;color:#a9c0cb;font-size:15px;line-height:1.7;margin:20px 0 22px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;perspective:1000px}.cards.split{grid-template-columns:repeat(3,1fr)}.cards a{min-height:145px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:#fff;border:1px solid rgba(143,215,245,.17);background:linear-gradient(160deg,rgba(9,42,57,.72),rgba(4,26,38,.44));backdrop-filter:blur(13px);border-radius:13px;box-shadow:0 18px 50px rgba(0,0,0,.16);transition:transform .35s var(--ease),border-color .35s,background .35s}.cards a:hover{transform:translateY(-8px) rotateX(2deg);border-color:rgba(91,211,255,.5);background:linear-gradient(160deg,rgba(8,72,101,.72),rgba(4,30,43,.52))}.cards small{font:800 9px ui-monospace,SFMono-Regular,monospace;letter-spacing:.1em;color:#6fcdf3}.cards b{font:800 17px Manrope,Inter,sans-serif;margin:8px 0 12px}.cards span{font-size:11px;color:#9bb8c6}.world-label{position:fixed;z-index:5;transform:translate(-50%,-50%);pointer-events:none;opacity:.78;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(133,215,249,.2);background:rgba(3,24,35,.32);backdrop-filter:blur(7px);border-radius:999px;color:#d9f4ff;transition:opacity .25s}.world-label span{font:800 9px ui-monospace,SFMono-Regular,monospace;color:#62cfff}.world-label b{font-size:9px;letter-spacing:.11em}.status-bar{position:fixed;left:0;right:0;bottom:0;z-index:36;min-height:38px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 34px;border-top:1px solid var(--line);background:rgba(2,15,23,.62);backdrop-filter:blur(10px);font:700 9px ui-monospace,SFMono-Regular,monospace;letter-spacing:.08em;color:#6f8d9c}.status-center{justify-self:center}.status-center i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#55d6ff;margin:0 5px;box-shadow:0 0 10px #55d6ff}.status-bar button{justify-self:end;color:#8db2c3;font:inherit}.chat{position:fixed;right:22px;bottom:58px;z-index:60}.chat-panel{display:none;width:310px;margin-bottom:10px;border:1px solid rgba(118,211,249,.24);background:rgba(2,18,27,.92);backdrop-filter:blur(20px);border-radius:14px;overflow:hidden;box-shadow:0 22px 70px rgba(0,0,0,.34)}.chat.open .chat-panel{display:block;animation:chatIn .24s ease}.chat-head{padding:14px;display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line)}.chat-head>span{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#0b92d4}.chat-head b{font-size:12px}.chat-head small{display:block;color:#7899a8;font-size:9px;margin-top:2px}.chat-msg{padding:13px 14px 10px;color:#bcd3dc;font-size:12px}.chat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 12px 12px}.chat-grid button{padding:9px;border:1px solid var(--line);background:rgba(12,55,73,.32);color:#d7eef7;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer}.chat-peek{position:absolute;right:68px;bottom:7px;white-space:nowrap;background:rgba(3,22,31,.82);border:1px solid var(--line);backdrop-filter:blur(12px);padding:9px 11px;border-radius:10px;font-size:10px;color:#a9c7d4}.chat.open .chat-peek{display:none}.chat-launch{margin-left:auto;width:56px;height:56px;border-radius:50%;border:1px solid #56cfff;background:linear-gradient(145deg,#072a3d,#0a4d6e);color:#7cdbff;font-size:20px;cursor:pointer;box-shadow:0 0 24px rgba(87,209,255,.16)}.noscript{position:fixed;inset:20px;z-index:100;background:#071c27;color:#fff;padding:30px}.mobile-nav-open .world-nav{display:flex}@keyframes chatIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}@media(max-width:1000px){.hud-top{grid-template-columns:auto 1fr auto;padding:0 18px}.world-nav{position:fixed;top:82px;right:14px;display:none;flex-direction:column;align-items:stretch;border-radius:16px;padding:10px;background:rgba(2,20,30,.94)}.world-nav button{text-align:left;min-width:180px}.menu{display:block}.brand span{display:none}.rail{left:12px}.rail button{width:44px;grid-template-columns:7px 1fr}.rail button b{display:none}.zone{left:82px;width:calc(100vw - 105px)}.service-zone{width:calc(100vw - 105px)}.cards{grid-template-columns:1fr 1fr}.cards.split{grid-template-columns:1fr 1fr}.world-label{display:none}}@media(max-width:640px){.hud-top{height:72px}.brand img{height:44px}.rail{display:none}.zone,.service-zone{left:18px;top:auto;bottom:62px;width:calc(100vw - 36px);transform:translateY(18px) scale(.98)}.zone.active{transform:none}.hero-zone h1{font-size:58px}.hero-zone p{font-size:14px;max-width:94%}.hero-actions{flex-wrap:wrap}.service-zone h2{font-size:42px}.service-zone>p{font-size:13px}.cards,.cards.split{grid-template-columns:1fr 1fr;gap:7px}.cards a{min-height:112px;padding:12px}.cards b{font-size:14px;margin:6px 0 8px}.cards span{font-size:9px}.status-bar{padding:0 12px;grid-template-columns:1fr auto}.status-bar>span:first-child{display:none}.status-center{justify-self:start}.chat{right:12px;bottom:50px}.chat-peek{display:none}.chat-panel{width:min(310px,calc(100vw - 24px))}}@media(max-width:420px){.hero-zone h1{font-size:50px}.service-zone h2{font-size:36px}.cards,.cards.split{grid-template-columns:1fr}.cards a{min-height:82px}.service-zone>p{margin-bottom:12px}.eyebrow{margin-bottom:10px}.service-zone{bottom:46px}.chat{bottom:45px}.status-bar{min-height:32px}.status-bar button{display:none}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.hero-hint{display:none}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
 </head>
 <body>
 <canvas id="world" aria-hidden="true"></canvas>
 <div class="world-vignette" aria-hidden="true"></div>
-
-<header class="hud-top">
-  <a class="brand" href="#home" data-zone="home" aria-label="Telikom PNG home">
-    <img src="https://www.telikom.com.pg/assets/misc/TPNGLOGO.png" alt="Telikom PNG">
-    <span>Connecting you anywhere anytime</span>
-  </a>
-  <nav class="world-nav" aria-label="Primary navigation">
-    <button data-zone="personal">Personal</button>
-    <button data-zone="home-services">Home & Fixed</button>
-    <button data-zone="business">Business</button>
-    <button data-zone="remote">Remote</button>
-    <button data-zone="company">Company</button>
-  </nav>
-  <button class="menu" id="menuBtn" aria-label="Open navigation">☰</button>
-</header>
-
-<aside class="rail" aria-label="World sections">
-  <button class="active" data-zone="home"><i></i><span>00</span><b>Home</b></button>
-  <button data-zone="personal"><i></i><span>01</span><b>Personal</b></button>
-  <button data-zone="home-services"><i></i><span>02</span><b>Home</b></button>
-  <button data-zone="business"><i></i><span>03</span><b>Business</b></button>
-  <button data-zone="remote"><i></i><span>04</span><b>Remote</b></button>
-  <button data-zone="company"><i></i><span>05</span><b>Company</b></button>
-</aside>
-
+<header class="hud-top"><a class="brand" href="#home" data-zone="home" aria-label="Telikom PNG home"><img src="https://www.telikom.com.pg/assets/misc/TPNGLOGO.png" alt="Telikom PNG"><span>Connecting you anywhere anytime</span></a><nav class="world-nav" aria-label="Primary navigation"><button data-zone="personal">Personal</button><button data-zone="home-services">Home & Fixed</button><button data-zone="business">Business</button><button data-zone="remote">Remote</button><button data-zone="company">Company</button></nav><button class="menu" id="menuBtn" aria-label="Open navigation">☰</button></header>
+<aside class="rail" aria-label="World sections"><button class="active" data-zone="home"><i></i><span>00</span><b>Home</b></button><button data-zone="personal"><i></i><span>01</span><b>Personal</b></button><button data-zone="home-services"><i></i><span>02</span><b>Home</b></button><button data-zone="business"><i></i><span>03</span><b>Business</b></button><button data-zone="remote"><i></i><span>04</span><b>Remote</b></button><button data-zone="company"><i></i><span>05</span><b>Company</b></button></aside>
 <main class="world-ui">
-  <section class="zone active hero-zone" data-panel="home">
-    <div class="eyebrow">TELIKOM PNG / EXPERIMENT 09</div>
-    <h1>Move through<br>the network.</h1>
-    <p>A full-screen digital world where Telikom services are destinations — not sections on a page.</p>
-    <div class="hero-actions">
-      <button class="primary" data-zone="personal">Enter the network ↗</button>
-      <button data-zone="business">Explore business</button>
-    </div>
-    <div class="hero-hint"><span>DRAG</span> to look around <i></i> <span>SCROLL</span> to travel</div>
-  </section>
-
-  <section class="zone service-zone" data-panel="personal">
-    <div class="zone-number">01</div>
-    <div class="eyebrow">PERSONAL CONNECTIVITY</div>
-    <h2>Everyday connection,<br>built around people.</h2>
-    <p>Mobile data, calling, roaming, devices and self-service — grouped around the way customers actually use Telikom.</p>
-    <div class="cards">
-      <a href="1/personal/mobile/gutpela-mobile-data-plans.html"><small>MOBILE DATA</small><b>Gutpela Data</b><span>Plans and passes →</span></a>
-      <a href="1/personal/mobile/international-call-plans.html"><small>CALLING</small><b>International</b><span>Call plans →</span></a>
-      <a href="1/personal/phones-tablets.html"><small>DEVICES</small><b>Phones & Routers</b><span>Browse devices →</span></a>
-      <a href="1/support/self-care.html"><small>ACCOUNT</small><b>Self Care</b><span>Manage services →</span></a>
-    </div>
-  </section>
-
-  <section class="zone service-zone" data-panel="home-services">
-    <div class="zone-number">02</div>
-    <div class="eyebrow">HOME & FIXED</div>
-    <h2>Bring the network<br>home.</h2>
-    <p>Fixed data, U-TOKMoa, special home passes and entertainment options brought into one connected household destination.</p>
-    <div class="cards split">
-      <a href="1/personal/fixed/u-tokmoa-plans.html"><small>VOICE + DATA</small><b>U-TOKMoa</b><span>Explore plans →</span></a>
-      <a href="1/personal/fixed/cheap-home-data.html"><small>HOME DATA</small><b>Affordable Home Data</b><span>Explore service →</span></a>
-      <a href="1/personal/home-entertainment-package.html"><small>ENTERTAINMENT</small><b>Home Entertainment</b><span>View package →</span></a>
-    </div>
-  </section>
-
-  <section class="zone service-zone" data-panel="business">
-    <div class="zone-number">03</div>
-    <div class="eyebrow">BUSINESS / GOVERNMENT / ENTERPRISE</div>
-    <h2>Infrastructure for<br>organisations that move PNG.</h2>
-    <p>Business data, systems, co-location, SIP trunking, fixed broadband, hosting and enterprise connectivity.</p>
-    <div class="cards">
-      <a href="1/business/fixed/business-fixed-data.html"><small>CONNECTIVITY</small><b>Business Data</b><span>Explore →</span></a>
-      <a href="1/business/fixed/business-fixed-services-business-systems.html"><small>SYSTEMS</small><b>Business Systems</b><span>Explore →</span></a>
-      <a href="1/business/fixed/business-fixed-co-location.html"><small>INFRASTRUCTURE</small><b>Co-Location</b><span>Explore →</span></a>
-      <a href="1/business/fixed/web-hosting-services.html"><small>CLOUD</small><b>Web & Hosting</b><span>Explore →</span></a>
-    </div>
-  </section>
-
-  <section class="zone service-zone" data-panel="remote">
-    <div class="zone-number">04</div>
-    <div class="eyebrow">REMOTE CONNECTIVITY</div>
-    <h2>Where roads end,<br>the network continues.</h2>
-    <p>Satellite connectivity for remote sites, communities and enterprise operations across Papua New Guinea.</p>
-    <div class="cards split">
-      <a href="1/enterprise/starlink.html"><small>ENTERPRISE</small><b>Starlink</b><span>Remote connectivity →</span></a>
-      <a href="1/business/fixed/business-services-vsat.html"><small>SATELLITE</small><b>VSAT / Kacific</b><span>Explore VSAT →</span></a>
-      <a href="1/support/coverage.html"><small>NETWORK</small><b>Coverage</b><span>Check availability →</span></a>
-    </div>
-  </section>
-
-  <section class="zone service-zone" data-panel="company">
-    <div class="zone-number">05</div>
-    <div class="eyebrow">TELIKOM PNG</div>
-    <h2>A national network<br>with a human purpose.</h2>
-    <p>News, public notices, careers, community programs, leadership and support remain visible as part of the same world.</p>
-    <div class="cards">
-      <a href="1/media/news.html"><small>MEDIA</small><b>News</b><span>Latest updates →</span></a>
-      <a href="1/media/community-csr.html"><small>COMMUNITY</small><b>Community & CSR</b><span>Stories →</span></a>
-      <a href="1/company/careers.html"><small>PEOPLE</small><b>Careers</b><span>Opportunities →</span></a>
-      <a href="1/support/contact.html"><small>SUPPORT</small><b>Contact Telikom</b><span>Get help →</span></a>
-    </div>
-  </section>
+<section class="zone active hero-zone" data-panel="home"><div class="eyebrow">TELIKOM PNG / EXPERIMENT 09</div><h1>Move through<br>the network.</h1><p>A full-screen digital world where Telikom services are destinations — not sections on a page.</p><div class="hero-actions"><button class="primary" data-zone="personal">Enter the network ↗</button><button data-zone="business">Explore business</button></div><div class="hero-hint"><span>DRAG</span> to look around <i></i> <span>SCROLL</span> to travel</div></section>
+<section class="zone service-zone" data-panel="personal"><div class="zone-number">01</div><div class="eyebrow">PERSONAL CONNECTIVITY</div><h2>Everyday connection,<br>built around people.</h2><p>Mobile data, calling, roaming, devices and self-service — grouped around the way customers actually use Telikom.</p><div class="cards"><a href="1/personal/mobile/gutpela-mobile-data-plans.html"><small>MOBILE DATA</small><b>Gutpela Data</b><span>Plans and passes →</span></a><a href="1/personal/mobile/international-call-plans.html"><small>CALLING</small><b>International</b><span>Call plans →</span></a><a href="1/personal/phones-tablets.html"><small>DEVICES</small><b>Phones & Routers</b><span>Browse devices →</span></a><a href="1/support/self-care.html"><small>ACCOUNT</small><b>Self Care</b><span>Manage services →</span></a></div></section>
+<section class="zone service-zone" data-panel="home-services"><div class="zone-number">02</div><div class="eyebrow">HOME & FIXED</div><h2>Bring the network<br>home.</h2><p>Fixed data, U-TOKMoa, special home passes and entertainment options brought into one connected household destination.</p><div class="cards split"><a href="1/personal/fixed/u-tokmoa-plans.html"><small>VOICE + DATA</small><b>U-TOKMoa</b><span>Explore plans →</span></a><a href="1/personal/fixed/cheap-home-data.html"><small>HOME DATA</small><b>Affordable Home Data</b><span>Explore service →</span></a><a href="1/personal/home-entertainment-package.html"><small>ENTERTAINMENT</small><b>Home Entertainment</b><span>View package →</span></a></div></section>
+<section class="zone service-zone" data-panel="business"><div class="zone-number">03</div><div class="eyebrow">BUSINESS / GOVERNMENT / ENTERPRISE</div><h2>Infrastructure for<br>organisations that move PNG.</h2><p>Business data, systems, co-location, SIP trunking, fixed broadband, hosting and enterprise connectivity.</p><div class="cards"><a href="1/business/fixed/business-fixed-data.html"><small>CONNECTIVITY</small><b>Business Data</b><span>Explore →</span></a><a href="1/business/fixed/business-fixed-services-business-systems.html"><small>SYSTEMS</small><b>Business Systems</b><span>Explore →</span></a><a href="1/business/fixed/business-fixed-co-location.html"><small>INFRASTRUCTURE</small><b>Co-Location</b><span>Explore →</span></a><a href="1/business/fixed/web-hosting-services.html"><small>CLOUD</small><b>Web & Hosting</b><span>Explore →</span></a></div></section>
+<section class="zone service-zone" data-panel="remote"><div class="zone-number">04</div><div class="eyebrow">REMOTE CONNECTIVITY</div><h2>Where roads end,<br>the network continues.</h2><p>Satellite connectivity for remote sites, communities and enterprise operations across Papua New Guinea.</p><div class="cards split"><a href="1/enterprise/starlink.html"><small>ENTERPRISE</small><b>Starlink</b><span>Remote connectivity →</span></a><a href="1/business/fixed/business-services-vsat.html"><small>SATELLITE</small><b>VSAT / Kacific</b><span>Explore VSAT →</span></a><a href="1/support/coverage.html"><small>NETWORK</small><b>Coverage</b><span>Check availability →</span></a></div></section>
+<section class="zone service-zone" data-panel="company"><div class="zone-number">05</div><div class="eyebrow">TELIKOM PNG</div><h2>A national network<br>with a human purpose.</h2><p>News, public notices, careers, community programs, leadership and support remain visible as part of the same world.</p><div class="cards"><a href="1/media/news.html"><small>MEDIA</small><b>News</b><span>Latest updates →</span></a><a href="1/media/community-csr.html"><small>COMMUNITY</small><b>Community & CSR</b><span>Stories →</span></a><a href="1/company/careers.html"><small>PEOPLE</small><b>Careers</b><span>Opportunities →</span></a><a href="1/support/contact.html"><small>SUPPORT</small><b>Contact Telikom</b><span>Get help →</span></a></div></section>
 </main>
-
-<div class="world-labels" aria-hidden="true">
-  <div class="world-label" data-label="personal"><span>01</span><b>PERSONAL</b></div>
-  <div class="world-label" data-label="home-services"><span>02</span><b>HOME</b></div>
-  <div class="world-label" data-label="business"><span>03</span><b>BUSINESS</b></div>
-  <div class="world-label" data-label="remote"><span>04</span><b>REMOTE</b></div>
-  <div class="world-label" data-label="company"><span>05</span><b>COMPANY</b></div>
-</div>
-
-<div class="status-bar">
-  <span>PNG NATIONAL TELECOMMUNICATIONS</span>
-  <span class="status-center">WORLD MODE <i></i> ACTIVE</span>
-  <button data-zone="company">NEWS / SUPPORT ↗</button>
-</div>
-
-<div class="chat" id="chat">
-  <div class="chat-panel">
-    <div class="chat-head"><span>✦</span><div><b>TELIKOM AI</b><small>World assistant</small></div></div>
-    <div class="chat-msg">Where would you like to go?</div>
-    <div class="chat-grid">
-      <button data-zone="personal">Personal</button><button data-zone="business">Business</button>
-      <button data-zone="remote">Remote</button><button data-zone="company">Support</button>
-    </div>
-  </div>
-  <div class="chat-peek">✦ Need help navigating?</div>
-  <button class="chat-launch" id="chatLaunch" aria-label="Open Telikom AI">✦</button>
-</div>
-
+<div class="world-labels" aria-hidden="true"><div class="world-label" data-label="personal"><span>01</span><b>PERSONAL</b></div><div class="world-label" data-label="home-services"><span>02</span><b>HOME</b></div><div class="world-label" data-label="business"><span>03</span><b>BUSINESS</b></div><div class="world-label" data-label="remote"><span>04</span><b>REMOTE</b></div><div class="world-label" data-label="company"><span>05</span><b>COMPANY</b></div></div>
+<div class="status-bar"><span>PNG NATIONAL TELECOMMUNICATIONS</span><span class="status-center">WORLD MODE <i></i> ACTIVE</span><button data-zone="company">NEWS / SUPPORT ↗</button></div>
+<div class="chat" id="chat"><div class="chat-panel"><div class="chat-head"><span>✦</span><div><b>TELIKOM AI</b><small>World assistant</small></div></div><div class="chat-msg">Where would you like to go?</div><div class="chat-grid"><button data-zone="personal">Personal</button><button data-zone="business">Business</button><button data-zone="remote">Remote</button><button data-zone="company">Support</button></div></div><div class="chat-peek">✦ Need help navigating?</div><button class="chat-launch" id="chatLaunch" aria-label="Open Telikom AI">✦</button></div>
 <noscript><div class="noscript">This experimental concept requires JavaScript to render the Telikom world.</div></noscript>
+<script>
+(()=>{'use strict';
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,canvas=document.getElementById('world');if(!canvas||!window.THREE){document.body.classList.add('three-failed');return}
+const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x03131d,0.018);const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.1,300);camera.position.set(0,5.5,24);const renderer=new THREE.WebGLRenderer({canvas,antialias:innerWidth>700,alpha:false,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.setSize(innerWidth,innerHeight);if('outputColorSpace' in renderer)renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.setClearColor(0x03131d,1);
+scene.add(new THREE.HemisphereLight(0x8de4ff,0x031017,1.2));const key=new THREE.DirectionalLight(0x57cfff,2.4);key.position.set(8,14,10);scene.add(key);const fill=new THREE.PointLight(0x0a7db9,30,60,2);fill.position.set(-12,8,4);scene.add(fill);const root=new THREE.Group();scene.add(root);
+const grid=new THREE.GridHelper(180,90,0x0a7fae,0x123544);grid.position.y=-3;grid.material.transparent=true;grid.material.opacity=.23;root.add(grid);const floor=new THREE.Mesh(new THREE.PlaneGeometry(180,180),new THREE.MeshBasicMaterial({color:0x051a24,transparent:true,opacity:.55,side:THREE.DoubleSide}));floor.rotation.x=-Math.PI/2;floor.position.y=-3.03;root.add(floor);
+const starsGeo=new THREE.BufferGeometry(),stars=[];for(let i=0;i<1800;i++)stars.push((Math.random()-.5)*170,Math.random()*80-8,(Math.random()-.5)*170);starsGeo.setAttribute('position',new THREE.Float32BufferAttribute(stars,3));const starsPts=new THREE.Points(starsGeo,new THREE.PointsMaterial({color:0x7bdcff,size:.045,transparent:true,opacity:.55,depthWrite:false}));root.add(starsPts);
+const zones={home:{pos:new THREE.Vector3(0,3,0),cam:new THREE.Vector3(0,5.5,24),look:new THREE.Vector3(0,1,0)},personal:{pos:new THREE.Vector3(-15,1,-14),cam:new THREE.Vector3(-7,4,2),look:new THREE.Vector3(-15,0,-14)},'home-services':{pos:new THREE.Vector3(14,.5,-17),cam:new THREE.Vector3(7,4,-1),look:new THREE.Vector3(14,0,-17)},business:{pos:new THREE.Vector3(19,2,3),cam:new THREE.Vector3(7,6,10),look:new THREE.Vector3(19,1,3)},remote:{pos:new THREE.Vector3(-18,4,8),cam:new THREE.Vector3(-6,7,15),look:new THREE.Vector3(-18,2,8)},company:{pos:new THREE.Vector3(0,7,-28),cam:new THREE.Vector3(0,8,-11),look:new THREE.Vector3(0,5,-28)}};
+function material(c,op=.82){return new THREE.MeshStandardMaterial({color:c,metalness:.25,roughness:.38,transparent:true,opacity:op,emissive:c,emissiveIntensity:.08})}const mBlue=material(0x087fc1),mDark=material(0x0a3145,.92),mCyan=material(0x39c8ff,.74),mGlass=new THREE.MeshPhysicalMaterial({color:0x0a789e,roughness:.12,metalness:.08,transparent:true,opacity:.2,transmission:.4,thickness:.6});
+const worldObjects={};function makeTower(zone,scale=1){const g=new THREE.Group();g.position.copy(zones[zone].pos);const base=new THREE.Mesh(new THREE.CylinderGeometry(3.1*scale,3.6*scale,.55*scale,8),mDark);base.position.y=-2.65;g.add(base);for(let i=0;i<7;i++){const h=(2.2+Math.random()*5.6)*scale,w=(.7+Math.random()*1.4)*scale,d=(.7+Math.random()*1.4)*scale,b=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),i%3===0?mCyan:mBlue),a=i/7*Math.PI*2,r=(.6+Math.random()*1.8)*scale;b.position.set(Math.cos(a)*r,h/2-2.4,Math.sin(a)*r);g.add(b)}const ring=new THREE.Mesh(new THREE.TorusGeometry(3.8*scale,.035*scale,8,96),new THREE.MeshBasicMaterial({color:0x69dbff,transparent:true,opacity:.48}));ring.rotation.x=Math.PI/2;ring.position.y=-2.2;g.add(ring);root.add(g);worldObjects[zone]=g;return g}makeTower('personal',1);makeTower('home-services',.95);makeTower('business',1.25);makeTower('company',1.15);
+(()=>{const g=new THREE.Group();g.position.copy(zones.remote.pos);const mast=new THREE.Mesh(new THREE.CylinderGeometry(.18,.3,4,16),mDark);mast.position.y=-1;g.add(mast);const dish=new THREE.Mesh(new THREE.SphereGeometry(2.2,32,16,0,Math.PI*2,0,Math.PI*.32),mGlass);dish.scale.z=.28;dish.rotation.x=-.8;dish.position.y=1;g.add(dish);const r=new THREE.Mesh(new THREE.TorusGeometry(4,.035,8,100),new THREE.MeshBasicMaterial({color:0x69dbff,transparent:true,opacity:.55}));r.rotation.x=1.1;g.add(r);root.add(g);worldObjects.remote=g})();
+const core=new THREE.Group();root.add(core);core.position.copy(zones.home.pos);const globe=new THREE.Mesh(new THREE.IcosahedronGeometry(4.2,4),new THREE.MeshBasicMaterial({color:0x0a7eb5,wireframe:true,transparent:true,opacity:.24}));core.add(globe);const shell=new THREE.Mesh(new THREE.SphereGeometry(3.5,40,40),new THREE.MeshBasicMaterial({color:0x126c91,transparent:true,opacity:.08}));core.add(shell);for(let i=0;i<28;i++){const a=Math.random()*Math.PI*2,b=(Math.random()-.5)*Math.PI,p=new THREE.Vector3(3.7*Math.cos(b)*Math.cos(a),3.7*Math.sin(b),3.7*Math.cos(b)*Math.sin(a));const n=new THREE.Mesh(new THREE.SphereGeometry(.06,8,8),new THREE.MeshBasicMaterial({color:0x9ceaff}));n.position.copy(p);core.add(n)}worldObjects.home=core;
+Object.keys(zones).filter(z=>z!=='home').forEach((z,i)=>{const p1=zones.home.pos.clone().setY(-1),p2=zones[z].pos.clone().setY(-1),mid=p1.clone().add(p2).multiplyScalar(.5);mid.y=2+Math.abs(i%2)*2;const curve=new THREE.QuadraticBezierCurve3(p1,mid,p2),line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(64)),new THREE.LineBasicMaterial({color:0x3bcfff,transparent:true,opacity:.28}));root.add(line)});
+const slabs=[];for(let i=0;i<24;i++){const slab=new THREE.Mesh(new THREE.PlaneGeometry(1.8+Math.random()*2.4,.7+Math.random()*1.3),new THREE.MeshBasicMaterial({color:i%3===0?0x1db8f0:0x0b6c96,transparent:true,opacity:.05+Math.random()*.07,side:THREE.DoubleSide,depthWrite:false}));slab.position.set((Math.random()-.5)*55,Math.random()*16-1,(Math.random()-.5)*55);slab.rotation.set((Math.random()-.5)*.8,Math.random()*Math.PI,(Math.random()-.5)*.3);slab.userData={baseY:slab.position.y,speed:.15+Math.random()*.35,phase:Math.random()*6};root.add(slab);slabs.push(slab)}
+let current='home',targetPos=camera.position.clone(),targetLook=zones.home.look.clone(),lookNow=targetLook.clone(),mx=0,my=0,lastWheel=0,dragging=false,lastX=0,lastY=0,dragYaw=0,dragPitch=0,touchStartY=0;
+const panels=[...document.querySelectorAll('[data-panel]')],railBtns=[...document.querySelectorAll('.rail [data-zone]')],navBtns=[...document.querySelectorAll('.world-nav [data-zone]')],order=['home','personal','home-services','business','remote','company'];
+function setZone(z){if(!zones[z])return;current=z;targetPos.copy(zones[z].cam);targetLook.copy(zones[z].look);panels.forEach(p=>p.classList.toggle('active',p.dataset.panel===z));railBtns.forEach(b=>b.classList.toggle('active',b.dataset.zone===z));navBtns.forEach(b=>b.classList.toggle('active',b.dataset.zone===z));document.body.classList.remove('mobile-nav-open')}
+function step(dir){const i=order.indexOf(current);setZone(order[Math.max(0,Math.min(order.length-1,i+dir))])}
+document.querySelectorAll('[data-zone]').forEach(el=>el.addEventListener('click',e=>{const z=el.dataset.zone;if(z){e.preventDefault();setZone(z)}}));addEventListener('wheel',e=>{const now=performance.now();if(now-lastWheel<500)return;lastWheel=now;step(e.deltaY>0?1:-1)},{passive:true});addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown','PageDown'].includes(e.key))step(1);if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))step(-1)});
+addEventListener('pointermove',e=>{if(!dragging){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5}else{dragYaw+=(e.clientX-lastX)*.0028;dragPitch+=(e.clientY-lastY)*.0022;dragPitch=Math.max(-.5,Math.min(.5,dragPitch));lastX=e.clientX;lastY=e.clientY}},{passive:true});canvas.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture?.(e.pointerId)});canvas.addEventListener('pointerup',e=>{dragging=false;canvas.releasePointerCapture?.(e.pointerId)});canvas.addEventListener('pointercancel',()=>dragging=false);
+addEventListener('touchstart',e=>{if(e.touches.length===1)touchStartY=e.touches[0].clientY},{passive:true});addEventListener('touchend',e=>{if(!e.changedTouches.length)return;const dy=e.changedTouches[0].clientY-touchStartY;if(Math.abs(dy)>65)step(dy<0?1:-1)},{passive:true});
+const labels=[...document.querySelectorAll('[data-label]')],tmp=new THREE.Vector3();function placeLabels(){labels.forEach(el=>{const z=zones[el.dataset.label];if(!z)return;tmp.copy(z.pos);tmp.y+=4;tmp.project(camera);const visible=tmp.z<1;el.style.display=visible?'flex':'none';el.style.left=((tmp.x*.5+.5)*innerWidth)+'px';el.style.top=((-tmp.y*.5+.5)*innerHeight)+'px';const dist=camera.position.distanceTo(z.pos);el.style.opacity=String(Math.max(.15,Math.min(.9,1-dist/55)))})}
+function animate(t=0){requestAnimationFrame(animate);const ease=reduce?1:.045;camera.position.lerp(targetPos,ease);lookNow.lerp(targetLook,ease);const parallax=new THREE.Vector3(mx*.55+dragYaw,-my*.3-dragPitch,0);camera.lookAt(lookNow.clone().add(parallax));core.rotation.y+=reduce?0:.0016;core.rotation.x=Math.sin(t*.00025)*.06;starsPts.rotation.y+=reduce?0:.00008;Object.values(worldObjects).forEach((g,i)=>{if(g!==core)g.rotation.y+=reduce?0:.0005*(i%2?1:-1)});slabs.forEach(s=>{s.position.y=s.userData.baseY+Math.sin(t*.0005*s.userData.speed+s.userData.phase)*.5;s.rotation.y+=reduce?0:.00035});placeLabels();renderer.render(scene,camera)}animate();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.6))});const menu=document.getElementById('menuBtn');if(menu)menu.onclick=()=>document.body.classList.toggle('mobile-nav-open');const chat=document.getElementById('chat'),launch=document.getElementById('chatLaunch');if(chat&&launch)launch.onclick=()=>chat.classList.toggle('open');
+const rawBase='https://raw.githubusercontent.com/Kesehet/hosting_static/refs/heads/main/telikom-homepage-mocks/',prev='https://htmlpreview.github.io/?';if(location.hostname==='htmlpreview.github.io'){document.querySelectorAll('a[href]').forEach(a=>{const h=a.getAttribute('href');if(!h||h.startsWith('#')||/^https?:/i.test(h))return;a.href=prev+rawBase+h.replace(/^\.\//,'')})}
+})();
+</script>
 </body>
 </html>
