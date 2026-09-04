@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#03131d">
+<title>Telikom PNG — Immersive World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/9.css?v=1">
+<script defer src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
+<script defer src="assets/9.js?v=1"></script>
+</head>
+<body>
+<canvas id="world" aria-hidden="true"></canvas>
+<div class="world-vignette" aria-hidden="true"></div>
+
+<header class="hud-top">
+  <a class="brand" href="#home" data-zone="home" aria-label="Telikom PNG home">
+    <img src="https://www.telikom.com.pg/assets/misc/TPNGLOGO.png" alt="Telikom PNG">
+    <span>Connecting you anywhere anytime</span>
+  </a>
+  <nav class="world-nav" aria-label="Primary navigation">
+    <button data-zone="personal">Personal</button>
+    <button data-zone="home-services">Home & Fixed</button>
+    <button data-zone="business">Business</button>
+    <button data-zone="remote">Remote</button>
+    <button data-zone="company">Company</button>
+  </nav>
+  <button class="menu" id="menuBtn" aria-label="Open navigation">☰</button>
+</header>
+
+<aside class="rail" aria-label="World sections">
+  <button class="active" data-zone="home"><i></i><span>00</span><b>Home</b></button>
+  <button data-zone="personal"><i></i><span>01</span><b>Personal</b></button>
+  <button data-zone="home-services"><i></i><span>02</span><b>Home</b></button>
+  <button data-zone="business"><i></i><span>03</span><b>Business</b></button>
+  <button data-zone="remote"><i></i><span>04</span><b>Remote</b></button>
+  <button data-zone="company"><i></i><span>05</span><b>Company</b></button>
+</aside>
+
+<main class="world-ui">
+  <section class="zone active hero-zone" data-panel="home">
+    <div class="eyebrow">TELIKOM PNG / EXPERIMENT 09</div>
+    <h1>Move through<br>the network.</h1>
+    <p>A full-screen digital world where Telikom services are destinations — not sections on a page.</p>
+    <div class="hero-actions">
+      <button class="primary" data-zone="personal">Enter the network ↗</button>
+      <button data-zone="business">Explore business</button>
+    </div>
+    <div class="hero-hint"><span>DRAG</span> to look around <i></i> <span>SCROLL</span> to travel</div>
+  </section>
+
+  <section class="zone service-zone" data-panel="personal">
+    <div class="zone-number">01</div>
+    <div class="eyebrow">PERSONAL CONNECTIVITY</div>
+    <h2>Everyday connection,<br>built around people.</h2>
+    <p>Mobile data, calling, roaming, devices and self-service — grouped around the way customers actually use Telikom.</p>
+    <div class="cards">
+      <a href="1/personal/mobile/gutpela-mobile-data-plans.html"><small>MOBILE DATA</small><b>Gutpela Data</b><span>Plans and passes →</span></a>
+      <a href="1/personal/mobile/international-call-plans.html"><small>CALLING</small><b>International</b><span>Call plans →</span></a>
+      <a href="1/personal/phones-tablets.html"><small>DEVICES</small><b>Phones & Routers</b><span>Browse devices →</span></a>
+      <a href="1/support/self-care.html"><small>ACCOUNT</small><b>Self Care</b><span>Manage services →</span></a>
+    </div>
+  </section>
+
+  <section class="zone service-zone" data-panel="home-services">
+    <div class="zone-number">02</div>
+    <div class="eyebrow">HOME & FIXED</div>
+    <h2>Bring the network<br>home.</h2>
+    <p>Fixed data, U-TOKMoa, special home passes and entertainment options brought into one connected household destination.</p>
+    <div class="cards split">
+      <a href="1/personal/fixed/u-tokmoa-plans.html"><small>VOICE + DATA</small><b>U-TOKMoa</b><span>Explore plans →</span></a>
+      <a href="1/personal/fixed/cheap-home-data.html"><small>HOME DATA</small><b>Affordable Home Data</b><span>Explore service →</span></a>
+      <a href="1/personal/home-entertainment-package.html"><small>ENTERTAINMENT</small><b>Home Entertainment</b><span>View package →</span></a>
+    </div>
+  </section>
+
+  <section class="zone service-zone" data-panel="business">
+    <div class="zone-number">03</div>
+    <div class="eyebrow">BUSINESS / GOVERNMENT / ENTERPRISE</div>
+    <h2>Infrastructure for<br>organisations that move PNG.</h2>
+    <p>Business data, systems, co-location, SIP trunking, fixed broadband, hosting and enterprise connectivity.</p>
+    <div class="cards">
+      <a href="1/business/fixed/business-fixed-data.html"><small>CONNECTIVITY</small><b>Business Data</b><span>Explore →</span></a>
+      <a href="1/business/fixed/business-fixed-services-business-systems.html"><small>SYSTEMS</small><b>Business Systems</b><span>Explore →</span></a>
+      <a href="1/business/fixed/business-fixed-co-location.html"><small>INFRASTRUCTURE</small><b>Co-Location</b><span>Explore →</span></a>
+      <a href="1/business/fixed/web-hosting-services.html"><small>CLOUD</small><b>Web & Hosting</b><span>Explore →</span></a>
+    </div>
+  </section>
+
+  <section class="zone service-zone" data-panel="remote">
+    <div class="zone-number">04</div>
+    <div class="eyebrow">REMOTE CONNECTIVITY</div>
+    <h2>Where roads end,<br>the network continues.</h2>
+    <p>Satellite connectivity for remote sites, communities and enterprise operations across Papua New Guinea.</p>
+    <div class="cards split">
+      <a href="1/enterprise/starlink.html"><small>ENTERPRISE</small><b>Starlink</b><span>Remote connectivity →</span></a>
+      <a href="1/business/fixed/business-services-vsat.html"><small>SATELLITE</small><b>VSAT / Kacific</b><span>Explore VSAT →</span></a>
+      <a href="1/support/coverage.html"><small>NETWORK</small><b>Coverage</b><span>Check availability →</span></a>
+    </div>
+  </section>
+
+  <section class="zone service-zone" data-panel="company">
+    <div class="zone-number">05</div>
+    <div class="eyebrow">TELIKOM PNG</div>
+    <h2>A national network<br>with a human purpose.</h2>
+    <p>News, public notices, careers, community programs, leadership and support remain visible as part of the same world.</p>
+    <div class="cards">
+      <a href="1/media/news.html"><small>MEDIA</small><b>News</b><span>Latest updates →</span></a>
+      <a href="1/media/community-csr.html"><small>COMMUNITY</small><b>Community & CSR</b><span>Stories →</span></a>
+      <a href="1/company/careers.html"><small>PEOPLE</small><b>Careers</b><span>Opportunities →</span></a>
+      <a href="1/support/contact.html"><small>SUPPORT</small><b>Contact Telikom</b><span>Get help →</span></a>
+    </div>
+  </section>
+</main>
+
+<div class="world-labels" aria-hidden="true">
+  <div class="world-label" data-label="personal"><span>01</span><b>PERSONAL</b></div>
+  <div class="world-label" data-label="home-services"><span>02</span><b>HOME</b></div>
+  <div class="world-label" data-label="business"><span>03</span><b>BUSINESS</b></div>
+  <div class="world-label" data-label="remote"><span>04</span><b>REMOTE</b></div>
+  <div class="world-label" data-label="company"><span>05</span><b>COMPANY</b></div>
+</div>
+
+<div class="status-bar">
+  <span>PNG NATIONAL TELECOMMUNICATIONS</span>
+  <span class="status-center">WORLD MODE <i></i> ACTIVE</span>
+  <button data-zone="company">NEWS / SUPPORT ↗</button>
+</div>
+
+<div class="chat" id="chat">
+  <div class="chat-panel">
+    <div class="chat-head"><span>✦</span><div><b>TELIKOM AI</b><small>World assistant</small></div></div>
+    <div class="chat-msg">Where would you like to go?</div>
+    <div class="chat-grid">
+      <button data-zone="personal">Personal</button><button data-zone="business">Business</button>
+      <button data-zone="remote">Remote</button><button data-zone="company">Support</button>
+    </div>
+  </div>
+  <div class="chat-peek">✦ Need help navigating?</div>
+  <button class="chat-launch" id="chatLaunch" aria-label="Open Telikom AI">✦</button>
+</div>
+
+<noscript><div class="noscript">This experimental concept requires JavaScript to render the Telikom world.</div></noscript>
+</body>
+</html>
